@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="id">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Arcane Converter • Traditional, Standard & Fantasy Units</title>
+    <title>Arcane Converter • Syahrul</title>
     <style>
         :root {
             --bg: #0a0a0a;
@@ -11,12 +11,12 @@
             --text: #e0e0e0;
             --text-secondary: #aaaaaa;
             --accent: #00d4ff;
-            --accent-dark: #00a8cc;
+            --accent-dark: #0099bb;
             --border: #333333;
-            --success: #4ade80;
+            --warning: #ffcc00;
         }
 
-        * { margin:0; padding:0; box-sizing:border-box; }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
         body {
             font-family: system-ui, -apple-system, sans-serif;
             background: var(--bg);
@@ -25,167 +25,258 @@
             min-height: 100vh;
         }
 
-        .container { max-width: 640px; margin: 0 auto; padding: 1.5rem; }
+        .container {
+            max-width: 720px;
+            margin: 0 auto;
+            padding: 1rem;
+        }
 
-        header { text-align: center; margin-bottom: 2rem; }
+        header {
+            text-align: center;
+            margin: 1.5rem 0 1rem;
+        }
+
         h1 {
-            font-size: 2.25rem;
+            font-size: 2rem;
             font-weight: 700;
             background: linear-gradient(90deg, #00d4ff, #8b5cf6);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
         }
-        .subtitle { color: var(--text-secondary); font-size: 1rem; }
 
-        .filters { display: flex; gap: 0.5rem; margin-bottom: 1.5rem; flex-wrap: wrap; }
+        .subtitle {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+        }
+
+        .filters {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin: 1rem 0;
+            justify-content: center;
+        }
+
         .filter-btn {
-            padding: 0.5rem 1rem;
+            padding: 0.6rem 1.2rem;
             background: var(--surface);
             border: 1px solid var(--border);
             color: var(--text);
             border-radius: 9999px;
             cursor: pointer;
-            transition: all 0.2s ease;
-            font-size: 0.875rem;
+            font-size: 0.9rem;
+            transition: all 0.2s;
         }
-        .filter-btn:hover { background: #252525; transform: translateY(-1px); }
-        .filter-btn.active { background: var(--accent); color: #000; border-color: var(--accent); }
+
+        .filter-btn:hover { background: #252525; }
+        .filter-btn.active {
+            background: var(--accent);
+            color: #000;
+            border-color: var(--accent);
+        }
 
         .converter {
             background: var(--surface);
             border-radius: 16px;
-            padding: 1.5rem;
+            padding: 1.25rem;
             border: 1px solid var(--border);
-            box-shadow: 0 10px 30px -10px rgba(0,0,0,0.5);
+            box-shadow: 0 8px 24px -8px rgba(0,0,0,0.5);
         }
 
-        .input-group { margin-bottom: 1.5rem; }
-        label { display: block; font-size: 0.875rem; color: var(--text-secondary); margin-bottom: 0.5rem; font-weight: 500; }
+        .input-group {
+            margin-bottom: 1.25rem;
+        }
+
+        label {
+            display: block;
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            margin-bottom: 0.4rem;
+        }
+
+        input[type="number"],
+        select,
+        .unit-search input {
+            width: 100%;
+            background: #111;
+            border: 1px solid var(--border);
+            color: var(--text);
+            padding: 0.9rem 1rem;
+            font-size: 1.1rem;
+            border-radius: 10px;
+            transition: all 0.2s;
+        }
 
         input[type="number"] {
-            width: 100%;
-            background: #111;
-            border: 1px solid var(--border);
-            color: var(--text);
-            padding: 1rem;
-            font-size: 1.75rem;
+            font-size: 1.6rem;
             font-weight: 600;
-            border-radius: 12px;
-        }
-        input[type="number"]:focus {
-            outline: none;
-            border-color: var(--accent);
-            box-shadow: 0 0 0 3px rgba(0,212,255,0.2);
+            padding: 1rem;
         }
 
-        select {
-            width: 100%;
-            background: #111;
-            border: 1px solid var(--border);
-            color: var(--text);
-            padding: 1rem;
-            font-size: 1rem;
-            border-radius: 12px;
-        }
+        input:focus,
         select:focus {
             outline: none;
             border-color: var(--accent);
-            box-shadow: 0 0 0 3px rgba(0,212,255,0.2);
+            box-shadow: 0 0 0 3px rgba(0,212,255,0.15);
         }
 
-        .swap { display: flex; justify-content: center; margin: -1rem 0 1rem; }
+        .unit-info {
+            font-size: 0.85rem;
+            color: var(--accent);
+            margin-top: 0.4rem;
+            min-height: 1.1em;
+        }
+
+        .swap {
+            display: flex;
+            justify-content: center;
+            margin: -1.2rem 0 1.2rem;
+        }
+
         .swap button {
-            width: 48px; height: 48px;
+            width: 52px;
+            height: 52px;
             background: var(--surface);
             border: 1px solid var(--border);
             color: var(--accent);
-            border-radius: 9999px;
+            border-radius: 50%;
+            font-size: 1.6rem;
             cursor: pointer;
-            transition: all 0.2s ease;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+            transition: all 0.25s;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.4);
         }
-        .swap button:hover { background: var(--accent); color: #000; transform: rotate(180deg) scale(1.1); }
+
+        .swap button:hover {
+            background: var(--accent);
+            color: #000;
+            transform: rotate(180deg) scale(1.08);
+        }
 
         .result {
             background: #111;
             border-radius: 12px;
-            padding: 1.25rem;
-            margin-top: 1rem;
+            padding: 1.2rem;
             border: 1px solid var(--border);
+            min-height: 90px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
             position: relative;
+            cursor: pointer;
+            user-select: none;
         }
 
         #output {
-            font-size: 2.25rem;
+            font-size: 2.1rem;
             font-weight: 700;
             color: var(--accent);
             word-break: break-all;
+            text-align: center;
         }
 
-        .copy-btn {
+        #notice {
+            font-size: 0.9rem;
+            color: var(--warning);
+            margin-top: 0.6rem;
+            text-align: center;
+            max-width: 90%;
+        }
+
+        .copy-notif {
             position: absolute;
-            top: 1rem;
-            right: 1rem;
-            background: transparent;
-            border: 1px solid var(--border);
-            color: var(--text-secondary);
-            padding: 0.5rem 0.75rem;
-            border-radius: 8px;
-            cursor: pointer;
-            font-size: 0.875rem;
-            transition: all 0.2s ease;
-        }
-        .copy-btn:hover { background: #222; color: var(--text); }
-        .copy-btn.copied {
-            background: var(--success);
+            top: 10px;
+            right: 12px;
+            background: var(--accent);
             color: #000;
-            border-color: var(--success);
+            padding: 5px 12px;
+            border-radius: 8px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            opacity: 0;
+            transition: opacity 0.3s;
         }
 
-        .controls { display: flex; gap: 1rem; margin-top: 1.5rem; align-items: center; flex-wrap: wrap; }
-        .precision-control { display: flex; align-items: center; gap: 0.75rem; }
-        .precision-control label { margin: 0; font-size: 0.875rem; }
-        input[type="number"].precision {
-            width: 70px;
-            padding: 0.5rem;
+        .copy-notif.show { opacity: 1; }
+
+        .controls {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            margin-top: 1.5rem;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .precision-control {
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+        }
+
+        input.precision {
+            width: 80px;
+            padding: 0.6rem;
             font-size: 1rem;
-            background: #111;
-            border: 1px solid var(--border);
-            border-radius: 8px;
-            color: var(--text);
         }
 
         .add-custom {
-            padding: 0.75rem 1.25rem;
+            padding: 0.7rem 1.4rem;
             background: #111;
             color: var(--text);
             border: 1px solid var(--border);
             border-radius: 9999px;
             cursor: pointer;
-            margin-left: auto;
+            font-size: 0.9rem;
+            transition: all 0.2s;
         }
-        .add-custom:hover { background: var(--accent); color: #000; }
 
-        /* Modal styles (sama seperti sebelumnya) */
-        .modal { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.85); align-items: center; justify-content: center; z-index: 100; }
-        .modal-content { background: var(--surface); border-radius: 16px; width: 100%; max-width: 420px; padding: 1.75rem; border: 1px solid var(--border); }
-        .modal h2 { margin-bottom: 1.5rem; }
-        .form-group { margin-bottom: 1.25rem; }
-        .form-group label { font-size: 0.875rem; margin-bottom: 0.5rem; display: block; }
-        .form-group input, .form-group select, .form-group textarea {
-            width: 100%; background: #111; border: 1px solid var(--border); color: var(--text);
-            padding: 0.75rem; border-radius: 10px; font-size: 1rem;
+        .add-custom:hover {
+            background: var(--accent);
+            color: #000;
         }
-        .modal-buttons { display: flex; gap: 1rem; margin-top: 1.5rem; }
-        .modal-buttons button { flex: 1; padding: 0.875rem; border-radius: 10px; font-weight: 600; cursor: pointer; }
-        .cancel-btn { background: transparent; border: 1px solid var(--border); color: var(--text-secondary); }
-        .cancel-btn:hover { background: #252525; }
-        .add-btn { background: var(--accent); color: #000; border: none; }
 
-        @media (max-width: 480px) {
-            h1 { font-size: 1.875rem; }
-            #output { font-size: 1.75rem; }
-            input[type="number"] { font-size: 1.5rem; padding: 0.875rem; }
+        footer {
+            text-align: center;
+            margin: 3rem 0 2rem;
+            color: var(--text-secondary);
+            font-size: 0.85rem;
+        }
+
+        footer a {
+            color: var(--accent);
+            text-decoration: none;
+        }
+
+        footer a:hover { text-decoration: underline; }
+
+        /* =============================================
+           RESPONSIVE - COMPACT MODE (Smartphone)
+        ============================================= */
+        @media (max-width: 640px) {
+            .container { padding: 0.8rem; }
+            h1 { font-size: 1.8rem; margin: 1rem 0 0.5rem; }
+            .converter { padding: 1rem; border-radius: 12px; }
+            input[type="number"] { font-size: 1.8rem; padding: 0.9rem; }
+            select, input { font-size: 1rem; padding: 0.8rem; }
+            .swap button { width: 48px; height: 48px; font-size: 1.4rem; }
+            #output { font-size: 1.9rem; }
+            .filters { gap: 0.4rem; }
+            .filter-btn { padding: 0.5rem 1rem; font-size: 0.85rem; }
+            .controls { flex-direction: column; align-items: stretch; gap: 1rem; }
+            .add-custom { width: 100%; text-align: center; }
+            .precision-control { justify-content: center; }
+            .result { min-height: 100px; padding: 1rem; }
+        }
+
+        /* =============================================
+           LAYOUT LEBIH NYAMAN DI LAYAR BESAR
+        ============================================= */
+        @media (min-width: 641px) {
+            .container { padding: 2rem 1.5rem; max-width: 800px; }
+            h1 { font-size: 2.5rem; }
+            .converter { padding: 2rem; }
+            .filters { justify-content: flex-start; }
         }
     </style>
 </head>
@@ -193,244 +284,247 @@
     <div class="container">
         <header>
             <h1>Arcane Converter</h1>
-            <p class="subtitle">Traditional • Standard • Fantasy measurement systems</p>
+            <p class="subtitle">Satuan Tradisional Indonesia & Fantasi</p>
         </header>
 
         <div class="filters" id="filters">
-            <button class="filter-btn active" data-filter="all">All</button>
-            <button class="filter-btn" data-filter="standard">Standard</button>
-            <button class="filter-btn" data-filter="traditional">Traditional</button>
-            <button class="filter-btn" data-filter="fantasy">Fantasy</button>
+            <button class="filter-btn active" data-filter="all">Semua</button>
+            <button class="filter-btn" data-filter="standard">Standar</button>
+            <button class="filter-btn" data-filter="traditional">Tradisional</button>
+            <button class="filter-btn" data-filter="fantasy">Fantasi</button>
         </div>
 
         <div class="converter">
-            <div class="input-group">
-                <label for="inputValue">Value</label>
-                <input type="number" id="inputValue" min="0" step="any" value="1" placeholder="Enter value">
+            <div class="input-group unit-search">
+                <input type="text" id="unitSearch" placeholder="Cari satuan (bambu, mok, thaum, dll)">
             </div>
 
             <div class="input-group">
-                <label for="fromUnit">From</label>
+                <label for="inputValue">Nilai</label>
+                <input type="number" id="inputValue" min="0" step="any" value="1" placeholder="Masukkan nilai">
+            </div>
+
+            <div class="input-group">
+                <label for="fromUnit">Dari</label>
                 <select id="fromUnit"></select>
+                <div class="unit-info" id="fromInfo"></div>
             </div>
 
             <div class="swap">
-                <button id="swapBtn" aria-label="Swap units">⇄</button>
+                <button id="swapBtn">⇄</button>
             </div>
 
             <div class="input-group">
-                <label for="toUnit">To</label>
+                <label for="toUnit">Ke</label>
                 <select id="toUnit"></select>
+                <div class="unit-info" id="toInfo"></div>
             </div>
 
-            <div class="result">
+            <div class="result" id="resultBox">
                 <div id="output">--</div>
-                <button class="copy-btn" id="copyBtn" title="Copy result">Copy</button>
+                <div id="notice"></div>
+                <div class="copy-notif" id="copyNotif">Disalin!</div>
             </div>
 
             <div class="controls">
                 <div class="precision-control">
-                    <label for="precision">Decimals</label>
+                    <label for="precision">Desimal</label>
                     <input type="number" id="precision" class="precision" value="4" min="0" max="10">
                 </div>
-                <button class="add-custom" id="addCustomBtn">+ Add Custom Unit</button>
+                <button class="add-custom" id="addCustomBtn">+ Custom Unit</button>
             </div>
         </div>
-    </div>
 
-    <!-- Modal Add Custom Unit (sama seperti sebelumnya, tidak diubah) -->
-    <div class="modal" id="customModal">
-        <div class="modal-content">
-            <h2>Add Custom Unit</h2>
-            <div class="form-group">
-                <label for="customName">Unit Name</label>
-                <input type="text" id="customName" placeholder="e.g. Mana Crystal">
-            </div>
-            <div class="form-group">
-                <label for="customGrams">Grams per Unit</label>
-                <input type="number" id="customGrams" step="any" placeholder="e.g. 125.5">
-            </div>
-            <div class="form-group">
-                <label for="customCategory">Category</label>
-                <select id="customCategory">
-                    <option value="standard">Standard</option>
-                    <option value="traditional">Traditional</option>
-                    <option value="fantasy" selected>Fantasy</option>
-                </select>
-            </div>
-            <div class="form-group">
-                <label for="customDesc">Description (optional)</label>
-                <textarea id="customDesc" placeholder="Brief explanation of the unit"></textarea>
-            </div>
-            <div class="modal-buttons">
-                <button class="cancel-btn" id="cancelCustom">Cancel</button>
-                <button class="add-btn" id="confirmAdd">Add Unit</button>
-            </div>
-        </div>
+        <footer>
+            © 2026 Dibuat oleh <a href="#" target="_blank">Syahrul</a> • Lhokseumawe, Aceh
+        </footer>
     </div>
 
     <script>
-        // Unit definitions (sama seperti sebelumnya)
-        let units = {
-            gram: { name: "Gram", factor: 1, category: "standard" },
-            kilogram: { name: "Kilogram", factor: 1000, category: "standard" },
-            ounce: { name: "Ounce", factor: 28.349523125, category: "standard" },
-            pound: { name: "Pound", factor: 453.59237, category: "standard" },
-            jin: { name: "Jin", factor: 500, category: "traditional", description: "Chinese catty (0.5 kg)" },
-            mayam: { name: "Mayam", factor: 3.33, category: "traditional" },
-            tahil: { name: "Tahil", factor: 37.8, category: "traditional" },
-            kupang: { name: "Kupang", factor: 0.64, category: "traditional" },
-            manaStone: { name: "Mana Stone", factor: 150, category: "fantasy" },
-            dragonScale: { name: "Dragon Scale", factor: 8, category: "fantasy" },
-            heroWeightUnit: { name: "HWU", factor: 70000, category: "fantasy" }
+        // === UNIT DATA ===
+        const units = {
+            gram: { name: "Gram", factor: 1, category: "standard", description: "Satuan standar metrik" },
+            kilogram: { name: "Kilogram", factor: 1000, category: "standard", description: "1.000 gram – umum untuk berat badan & barang" },
+            jin: { name: "Jin", factor: 500, category: "traditional", description: "Jin/Catty ≈0.5 kg" },
+            mayam: { name: "Mayam", factor: 3.33, category: "traditional", description: "Satuan Melayu/Aceh untuk emas ≈3.33 g" },
+            tahil: { name: "Tahil", factor: 37.8, category: "traditional", description: "Tael Melayu ≈37.8 g" },
+            kupang: { name: "Kupang", factor: 0.64, category: "traditional", description: "Satuan kecil Melayu/Aceh ≈0.64 g" },
+            ceeng: { name: "Ceeng", factor: 1000, category: "traditional", description: "Satuan Bali ≈1 kg untuk beras" },
+            kulak: { name: "Kulak", factor: 2500, category: "traditional", description: "Satuan Dayak/Kalbar ≈2.5 kg" },
+            pikul: { name: "Pikul", factor: 61605, category: "traditional", description: "Pikul Nusantara ≈61.6 kg" },
+            bambu: { name: "Bambu", factor: 1600, category: "traditional", description: "Satuan Aceh untuk beras ≈1.6 kg" },
+            mok: { name: "Mok", factor: 250, category: "traditional", description: "Mok/kaleng bekas ≈250 g beras" },
+            gelasBelimbing: { name: "Gelas Belimbing", factor: 100, category: "traditional", description: "Gelas belimbing ≈100 g beras" },
+            cup: { name: "Cup / Cangkir", factor: 200, category: "traditional", description: "Cangkir standar ≈200 g beras" },
+            manaStone: { name: "Mana Stone", factor: 150, category: "fantasy", description: "Batu mana isekai ≈150 g" },
+            dragonScale: { name: "Dragon Scale", factor: 8, category: "fantasy", description: "Sisik naga ≈8 g" },
+            thaum: { name: "Thaum", factor: 450, category: "fantasy", description: "Unit sihir Discworld ≈450 g" },
+            coin: { name: "Coin (GP)", factor: 9, category: "fantasy", description: "Gold Piece D&D ≈9 g" }
         };
 
         let currentFilter = 'all';
 
-        const inputValueEl = document.getElementById('inputValue');
-        const fromUnitEl = document.getElementById('fromUnit');
-        const toUnitEl = document.getElementById('toUnit');
-        const precisionEl = document.getElementById('precision');
-        const outputEl = document.getElementById('output');
-        const copyBtn = document.getElementById('copyBtn');
-        const swapBtn = document.getElementById('swapBtn');
-        const addCustomBtn = document.getElementById('addCustomBtn');
-        const customModal = document.getElementById('customModal');
+        const els = {
+            inputValue: document.getElementById('inputValue'),
+            fromUnit: document.getElementById('fromUnit'),
+            toUnit: document.getElementById('toUnit'),
+            fromInfo: document.getElementById('fromInfo'),
+            toInfo: document.getElementById('toInfo'),
+            precision: document.getElementById('precision'),
+            output: document.getElementById('output'),
+            notice: document.getElementById('notice'),
+            resultBox: document.getElementById('resultBox'),
+            copyNotif: document.getElementById('copyNotif'),
+            unitSearch: document.getElementById('unitSearch'),
+            swapBtn: document.getElementById('swapBtn'),
+            addCustomBtn: document.getElementById('addCustomBtn')
+        };
 
         function createOption(key, unit) {
-            const option = document.createElement('option');
-            option.value = key;
-            option.textContent = unit.name;
-            if (unit.description) option.title = unit.description;
-            return option;
+            const opt = document.createElement('option');
+            opt.value = key;
+            opt.textContent = unit.name;
+            opt.title = unit.description;
+            opt.dataset.desc = unit.description;
+            opt.dataset.category = unit.category;
+            return opt;
         }
 
-        function populateSelects() {
-            const fromSelect = fromUnitEl;
-            const toSelect = toUnitEl;
+        function populateSelects(search = '') {
+            const q = search.toLowerCase();
+            const oldFrom = els.fromUnit.value;
+            const oldTo = els.toUnit.value;
 
-            const oldFrom = fromSelect.value;
-            const oldTo = toSelect.value;
+            els.fromUnit.innerHTML = '';
+            els.toUnit.innerHTML = '';
 
-            fromSelect.innerHTML = '';
-            toSelect.innerHTML = '';
+            let filtered = Object.entries(units).filter(([k, u]) => {
+                if (currentFilter !== 'all' && u.category !== currentFilter) return false;
+                return !q || u.name.toLowerCase().includes(q) || u.description.toLowerCase().includes(q);
+            });
 
-            // ... (logika populate sama seperti sebelumnya, hanya disingkat di sini)
-            // Gunakan logika yang sama seperti versi sebelumnya untuk mengisi select
-
-            // Contoh singkat (sesuaikan dengan kode lengkapmu):
-            Object.entries(units)
-                .sort((a,b) => a[1].name.localeCompare(b[1].name))
-                .forEach(([key, unit]) => {
-                    if (currentFilter === 'all' || unit.category === currentFilter) {
-                        fromSelect.appendChild(createOption(key, unit));
-                        toSelect.appendChild(createOption(key, unit));
-                    }
+            if (currentFilter === 'all' && !q) {
+                ['standard', 'traditional', 'fantasy'].forEach(cat => {
+                    const group = filtered.filter(([,u]) => u.category === cat);
+                    if (!group.length) return;
+                    const optgroup = document.createElement('optgroup');
+                    optgroup.label = cat.charAt(0).toUpperCase() + cat.slice(1);
+                    group.sort((a,b) => a[1].name.localeCompare(b[1].name))
+                         .forEach(([k,u]) => optgroup.appendChild(createOption(k,u)));
+                    els.fromUnit.appendChild(optgroup);
+                    els.toUnit.appendChild(optgroup.cloneNode(true));
                 });
+            } else {
+                filtered.sort((a,b) => a[1].name.localeCompare(b[1].name))
+                        .forEach(([k,u]) => {
+                            els.fromUnit.appendChild(createOption(k,u));
+                            els.toUnit.appendChild(createOption(k,u));
+                        });
+            }
 
-            // Restore selection
-            if (oldFrom && fromSelect.querySelector(`option[value="${oldFrom}"]`)) fromSelect.value = oldFrom;
-            if (oldTo && toSelect.querySelector(`option[value="${oldTo}"]`)) toSelect.value = oldTo;
+            if (oldFrom && els.fromUnit.querySelector(`option[value="${oldFrom}"]`)) els.fromUnit.value = oldFrom;
+            if (oldTo && els.toUnit.querySelector(`option[value="${oldTo}"]`)) els.toUnit.value = oldTo;
 
-            if (!fromSelect.value && fromSelect.options.length > 0) fromSelect.selectedIndex = 0;
-            if (!toSelect.value && toSelect.options.length > 0) toSelect.selectedIndex = 0;
+            if (!els.fromUnit.value && els.fromUnit.options.length) els.fromUnit.selectedIndex = 0;
+            if (!els.toUnit.value && els.toUnit.options.length) els.toUnit.selectedIndex = 0;
 
+            updateInfo(els.fromUnit, els.fromInfo);
+            updateInfo(els.toUnit, els.toInfo);
             convert();
         }
 
-        function smartFormat(number, maxDecimals) {
-            // Jika bilangan bulat
-            if (Number.isInteger(number)) {
-                return number.toString();
-            }
+        function updateInfo(select, infoEl) {
+            const opt = select.options[select.selectedIndex];
+            infoEl.textContent = opt ? opt.dataset.desc : '';
+        }
 
-            // Format dengan maxDecimals, hapus trailing zeros
-            let str = number.toFixed(maxDecimals);
-            str = str.replace(/\.?0+$/, ''); // hapus .0000 atau trailing zeros
-            return str;
+        function formatNumber(num) {
+            const dec = Math.min(Math.max(parseInt(els.precision.value)||4, 0), 10);
+            return parseFloat(num.toFixed(dec)).toString();
+        }
+
+        function showNotice(msg = '') {
+            els.notice.textContent = msg;
         }
 
         function convert() {
-            const inputVal = parseFloat(inputValueEl.value);
-            if (isNaN(inputVal)) {
-                outputEl.textContent = '--';
-                copyBtn.style.display = 'none';
+            showNotice('');
+            const str = els.inputValue.value.trim();
+            const val = parseFloat(str);
+
+            if (!str || isNaN(val)) {
+                els.output.textContent = '--';
+                showNotice('Masukkan angka valid');
                 return;
             }
 
-            const fromKey = fromUnitEl.value;
-            const toKey = toUnitEl.value;
+            const fKey = els.fromUnit.value;
+            const tKey = els.toUnit.value;
 
-            if (!fromKey || !toKey) {
-                outputEl.textContent = '--';
-                copyBtn.style.display = 'none';
+            if (!fKey || !tKey) {
+                els.output.textContent = '--';
+                showNotice('Pilih satuan dari & ke');
                 return;
             }
 
-            const fromFactor = units[fromKey].factor;
-            const toFactor = units[toKey].factor;
+            const from = units[fKey];
+            const to = units[tKey];
 
-            let result = inputVal * (fromFactor / toFactor);
+            const result = val * (from.factor / to.factor);
 
-            const maxDecimals = parseInt(precisionEl.value) || 4;
-            const formatted = smartFormat(result, maxDecimals);
+            // Peringatan nilai ekstrem
+            if (Math.abs(val) > 1e12 || (Math.abs(val) < 1e-6 && val !== 0)) {
+                showNotice('Nilai sangat besar/kecil – hasil mungkin terpotong');
+            }
+            // Peringatan konversi lintas dunia
+            else if ((from.category === 'fantasy' && to.category === 'traditional') ||
+                     (from.category === 'traditional' && to.category === 'fantasy')) {
+                showNotice('Fantasi ↔ nyata = hanya untuk fun ya 😄');
+            }
 
-            outputEl.textContent = `${formatted} ${units[toKey].name}`;
-            copyBtn.style.display = 'block';
-            copyBtn.classList.remove('copied');
-            copyBtn.textContent = 'Copy';
+            els.output.textContent = `${formatNumber(result)} ${to.name}`;
         }
 
-        function copyResult() {
-            const text = outputEl.textContent;
-            navigator.clipboard.writeText(text).then(() => {
-                copyBtn.textContent = 'Copied!';
-                copyBtn.classList.add('copied');
-                setTimeout(() => {
-                    copyBtn.textContent = 'Copy';
-                    copyBtn.classList.remove('copied');
-                }, 2000);
-            }).catch(() => {
-                alert('Failed to copy');
-            });
-        }
-
-        function swapUnits() {
-            [fromUnitEl.value, toUnitEl.value] = [toUnitEl.value, fromUnitEl.value];
+        // Event Listeners
+        els.inputValue.addEventListener('input', convert);
+        els.fromUnit.addEventListener('change', () => { updateInfo(els.fromUnit, els.fromInfo); convert(); });
+        els.toUnit.addEventListener('change', () => { updateInfo(els.toUnit, els.toInfo); convert(); });
+        els.precision.addEventListener('input', convert);
+        els.unitSearch.addEventListener('input', () => populateSelects(els.unitSearch.value));
+        els.swapBtn.addEventListener('click', () => {
+            [els.fromUnit.value, els.toUnit.value] = [els.toUnit.value, els.fromUnit.value];
+            updateInfo(els.fromUnit, els.fromInfo);
+            updateInfo(els.toUnit, els.toInfo);
             convert();
-        }
-
-        // Event listeners
-        inputValueEl.addEventListener('input', convert);
-        fromUnitEl.addEventListener('change', convert);
-        toUnitEl.addEventListener('change', convert);
-        precisionEl.addEventListener('input', convert);
-        swapBtn.addEventListener('click', swapUnits);
-        copyBtn.addEventListener('click', copyResult);
-        addCustomBtn.addEventListener('click', () => customModal.style.display = 'flex');
-        document.getElementById('cancelCustom').addEventListener('click', () => customModal.style.display = 'none');
-        document.getElementById('confirmAdd').addEventListener('click', () => {
-            // Logika tambah unit custom (sama seperti sebelumnya)
-            // ...
-            customModal.style.display = 'none';
-            populateSelects();
         });
 
-        // Filter buttons (sama seperti sebelumnya)
+        els.resultBox.addEventListener('click', () => {
+            const txt = els.output.textContent;
+            if (txt === '--') return;
+            navigator.clipboard.writeText(txt).then(() => {
+                els.copyNotif.classList.add('show');
+                setTimeout(() => els.copyNotif.classList.remove('show'), 1400);
+            });
+        });
+
         document.querySelectorAll('.filter-btn').forEach(btn => {
             btn.addEventListener('click', () => {
                 document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
                 btn.classList.add('active');
                 currentFilter = btn.dataset.filter;
-                populateSelects();
+                populateSelects(els.unitSearch.value);
             });
         });
 
+        els.addCustomBtn.addEventListener('click', () => {
+            alert('Fitur tambah unit custom akan datang di update berikutnya!');
+        });
+
         // Init
-        window.onload = () => {
+        window.addEventListener('load', () => {
             populateSelects();
             convert();
-        };
+        });
     </script>
 </body>
 </html>
