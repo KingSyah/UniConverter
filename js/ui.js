@@ -35,6 +35,7 @@ function cacheDom() {
   els.goldInfo     = $("#goldInfo");
   els.goldWarning  = $("#goldWarning");
   els.swapWrap     = els.swapBtn?.closest(".swap");
+  els.priceStatus  = $("#priceStatus");
 }
 
 // ─── Theme ───
@@ -379,4 +380,35 @@ export function refreshUI() {
 
 export function setUnits(units) {
   allUnits = units;
+}
+
+// ─── Live Gold Price Integration ───
+
+/**
+ * Update gold config after live fetch.
+ */
+export function updateGoldPriceConfig(config) {
+  goldConfig = config;
+  if (mode === "gold") doConvert();
+}
+
+/**
+ * Set price status indicator in UI.
+ * @param {"loading"|"live"|"cached"|"offline"} status
+ * @param {object} data - optional price data for display
+ */
+export function setPriceStatus(status, data = {}) {
+  if (!els.priceStatus) return;
+  const el = els.priceStatus;
+
+  const labels = {
+    loading: "⏳ Fetching price…",
+    live:    `🟢 Live · Rp ${Math.round(data.pricePerGram || 0).toLocaleString("id-ID")}/g`,
+    cached:  `🟡 Cached · Rp ${Math.round(data.pricePerGram || 0).toLocaleString("id-ID")}/g`,
+    offline: `🔴 Offline · Rp ${Math.round(data.pricePerGram || 0).toLocaleString("id-ID")}/g`
+  };
+
+  el.textContent = labels[status] || labels.offline;
+  el.className = `price-status price-${status}`;
+  el.style.display = "block";
 }
