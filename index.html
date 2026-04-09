@@ -76,6 +76,16 @@
       <!-- Price Status -->
       <div class="price-status" id="priceStatus" style="display:none"></div>
 
+      <!-- Custom Price Override -->
+      <div class="custom-price" id="customPrice">
+        <div class="custom-price-row">
+          <input type="number" id="customPriceInput" class="custom-price-input" placeholder="Custom Rp/g" min="0" step="1000">
+          <button class="custom-price-btn" id="customPriceBtn" title="Apply custom price">✓</button>
+          <button class="custom-price-reset" id="customPriceReset" title="Reset to auto price">↺</button>
+        </div>
+        <div class="custom-price-hint">Set manual gold price (override)</div>
+      </div>
+
       <!-- Controls -->
       <div class="controls">
         <div class="precision-control">
