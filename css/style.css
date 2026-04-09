@@ -244,13 +244,14 @@ h1 {
 .cross-notice {
   display: none;
   margin-top: 0.75rem;
-  padding: 0.65rem 1rem;
+  padding: 0.75rem 1rem;
   border-radius: var(--radius-sm);
   font-size: 0.8125rem;
   font-weight: 500;
-  line-height: 1.5;
-  text-align: center;
+  line-height: 1.6;
+  text-align: left;
   animation: fade-in 0.3s ease;
+  white-space: pre-line;
 }
 
 .cross-notice-info {
