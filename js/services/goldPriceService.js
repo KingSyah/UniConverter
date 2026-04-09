@@ -1,12 +1,16 @@
 // ─── goldPriceService.js — Auto gold price with caching & fallback ───
+// GoldAPI.io (primary) + free APIs (fallback) + static (last resort)
 // Frontend-only, no backend, graceful degradation
 
 const CACHE_KEY = "arcane-gold-price-cache";
 const CACHE_MAX_AGE = 24 * 60 * 60 * 1000; // 24 hours in ms
 
-// ─── API Sources (free, no key) ───
+// ─── GoldAPI.io (primary — 100 req/month free) ───
+const GOLDAPI_TOKEN = "goldapi-1seotsmnqynvux-io";
+const GOLDAPI_BASE = "https://www.goldapi.io/api";
+
+// ─── Free API Sources (fallback, no key needed) ───
 const SOURCES = {
-  // Exchange rate USD → IDR
   exchangeRate: [
     {
       name: "open-er-api",
@@ -19,7 +23,6 @@ const SOURCES = {
       parse: (data) => data?.usd?.idr
     }
   ],
-  // Gold price USD per troy ounce
   goldPrice: [
     {
       name: "fawaz-gold",
@@ -69,11 +72,11 @@ function isCacheFresh(cache) {
 }
 
 // ─── Fetch with timeout ───
-async function fetchWithTimeout(url, timeoutMs = 5000) {
+async function fetchWithTimeout(url, options = {}, timeoutMs = 5000) {
   const controller = new AbortController();
   const timer = setTimeout(() => controller.abort(), timeoutMs);
   try {
-    const res = await fetch(url, { signal: controller.signal });
+    const res = await fetch(url, { ...options, signal: controller.signal });
     clearTimeout(timer);
     if (!res.ok) return null;
     return await res.json();
@@ -83,7 +86,7 @@ async function fetchWithTimeout(url, timeoutMs = 5000) {
   }
 }
 
-// ─── Try multiple sources ───
+// ─── Try free fallback sources ───
 async function trySources(sources) {
   for (const src of sources) {
     try {
@@ -96,6 +99,40 @@ async function trySources(sources) {
     } catch { /* try next */ }
   }
   return null;
+}
+
+// ─── Fetch from GoldAPI.io (primary) ───
+// Returns { pricePerOunce, pricePerGram24k, source } or null
+async function fetchFromGoldAPI() {
+  try {
+    const data = await fetchWithTimeout(
+      `${GOLDAPI_BASE}/XAU/USD`,
+      {
+        headers: {
+          "x-access-token": GOLDAPI_TOKEN,
+          "Content-Type": "application/json"
+        }
+      },
+      8000 // slightly longer timeout for primary
+    );
+    if (!data) return null;
+
+    const priceOz = data.price || data.ask || data.close_price;
+    if (!priceOz || priceOz <= 0) return null;
+
+    // GoldAPI returns price_gram_24k directly — more accurate
+    const priceGram24kUsd = data.price_gram_24k || (priceOz / GRAMS_PER_OUNCE);
+
+    console.log(`[GoldAPI.io] $${priceOz}/oz, $${priceGram24kUsd}/g (24k)`);
+    return {
+      pricePerOunce: priceOz,
+      pricePerGram24k: priceGram24kUsd,
+      source: "goldapi.io"
+    };
+  } catch (e) {
+    console.warn("[GoldAPI.io] Failed:", e.message);
+    return null;
+  }
 }
 
 // ═══════════════════════════════════════════
@@ -130,34 +167,63 @@ export async function fetchGoldPrice(fallbackConfig) {
     };
   }
 
-  // 2. Try live fetch
+  // 2. Try live fetch: GoldAPI.io (gold) + free API (exchange rate)
   try {
-    const [goldResult, exchangeResult] = await Promise.all([
-      trySources(SOURCES.goldPrice),
+    const [goldAPIResult, exchangeResult] = await Promise.all([
+      fetchFromGoldAPI(),
       trySources(SOURCES.exchangeRate)
     ]);
 
-    if (goldResult && exchangeResult) {
-      const pricePerGram = (goldResult.value / GRAMS_PER_OUNCE) * exchangeResult.value;
+    let goldPrice = null;
+    let exchangeRate = null;
+    let sourceLabel = "";
+
+    // ── Gold price: try GoldAPI first, then free fallbacks ──
+    if (goldAPIResult) {
+      goldPrice = goldAPIResult.pricePerGram24k * GRAMS_PER_OUNCE; // convert back to oz for consistency
+      sourceLabel = `gold:${goldAPIResult.source}`;
+    } else {
+      // Fallback to free gold APIs (no key needed)
+      const freeGold = await trySources(SOURCES.goldPrice);
+      if (freeGold) {
+        goldPrice = freeGold.value;
+        sourceLabel = `gold:${freeGold.source}`;
+      }
+    }
+
+    // ── Exchange rate ──
+    if (exchangeResult) {
+      exchangeRate = exchangeResult.value;
+      sourceLabel += ` rate:${exchangeResult.source}`;
+    }
+
+    // ── Build result if both values found ──
+    if (goldPrice && exchangeRate) {
+      // Use price_gram_24k directly if from GoldAPI, otherwise calculate
+      const pricePerGramUsd = goldAPIResult
+        ? goldAPIResult.pricePerGram24k
+        : (goldPrice / GRAMS_PER_OUNCE);
+
+      const pricePerGram = Math.round(pricePerGramUsd * exchangeRate);
       const result = {
-        pricePerGram: Math.round(pricePerGram),
-        pricePerOunce: goldResult.value,
-        exchangeRate: exchangeResult.value,
+        pricePerGram,
+        pricePerOunce: goldPrice,
+        exchangeRate,
         currency: "IDR",
         symbol: "Rp",
         lastUpdated: new Date().toISOString().split("T")[0],
         status: "live",
-        source: `gold:${goldResult.value_source || goldResult.source} rate:${exchangeResult.source || "open-er-api"}`
+        source: sourceLabel
       };
 
-      // Strip internal fields before cache
-      const { _cachedAt, ...clean } = result;
-      saveCache(clean);
+      saveCache(result);
       return result;
     }
-  } catch { /* fall through */ }
+  } catch (e) {
+    console.warn("[GoldPrice] Live fetch error:", e.message);
+  }
 
-  // 3. Fallback: use cache if exists (even stale), else static config
+  // 3. Fallback: use cache if exists (even stale)
   if (cache?.data) {
     return {
       ...cache.data,
@@ -180,11 +246,12 @@ export async function fetchGoldPrice(fallbackConfig) {
 }
 
 /**
- * Force refresh (bypass cache).
+ * Force refresh (bypass cache). Uses sparingly — counts against GoldAPI limit!
  * @param {object} fallbackConfig
  * @returns {Promise<GoldPriceResult>}
  */
 export async function forceRefresh(fallbackConfig) {
+  console.warn("[GoldPrice] Force refresh — this uses 1 GoldAPI request");
   localStorage.removeItem(CACHE_KEY);
   return fetchGoldPrice(fallbackConfig);
 }
