@@ -50,7 +50,7 @@ export const traditionalUnits = [
 
   // Satuan Kecil (untuk bumbu, penyesuaian, atau zakat)
   { id: "sihah",         name: "Sihah",              factor: 15,      category: "traditional", description: "Satuan sangat kecil dari ujung jari kelingking hingga jari manis (~10–20 gram beras)" },
-  { id: "sejumput",      name: "Sejumput",           factor: 20,      category: "traditional", description: "Jumlah beras yang dicubit dengan 3 jari (ibu jari, telunjuk, tengah). Rata-rata ≈ 20 gram. Sering dipakai untuk tambahan zakat fitrah." },
+  { id: "sejumput_beras", name: "Sejumput (Beras)",  factor: 20, category: "traditional", description: "Untuk beras: ≈ 15–25 gram (rata-rata 20 gram)" },
   { id: "sejumput_garam", name: "Sejumput (Garam/Bumbu)", factor: 0.5, category: "traditional", description: "Untuk garam atau bumbu halus: ≈ 0,4–0,6 gram (jangan pakai 20 gram!)" },
   { id: "segenggam",     name: "Segenggam",          factor: 35,      category: "traditional", description: "Satu genggaman kecil dengan telapak tangan (~30–40 gram beras)" },
   { id: "sideupa",       name: "Sideupa",            factor: 80,      category: "traditional", description: "Takaran menggunakan lebar telapak tangan (dari ujung kelingking ke ujung telunjuk) ≈ 70–90 gram" },
@@ -72,7 +72,12 @@ export const traditionalUnits = [
   // Berdasarkan ketetapan Kemenag Aceh (umumnya 2.7–2.8 kg beras per jiwa untuk tahun 2025–2026)
   { id: "sha_aceh",      name: "Sha' (Zakat Fitrah)", factor: 2800,   category: "traditional", description: "Satuan zakat fitrah utama di Aceh. 1 Sha' ≈ 2.8 kg beras per jiwa (Mazhab Syafi'i). Bervariasi 2.7–2.8 kg antar kabupaten." },
   { id: "sha_tradisional", name: "Sha' Tradisional",  factor: 2750,   category: "traditional", description: "Takaran tradisional zakat fitrah: 1.5 Are (Bambu) + 1–2 Segenggam atau 10–11 Mok + sejumput/segenggam (≈ 2.7–2.8 kg)" },
-  
+
+  // ── Satuan "Secukupnya" (untuk bumbu masak Aceh) ──
+  // "Secukupnya" = sesuai selera, biasanya dimulai dari sedikit lalu dicicipi.
+  { id: "secukupnya_garam", name: "Secukupnya (Garam)", factor: 5, category: "traditional", description: "Takaran awal garam untuk masakan 4–5 porsi: ½–1 sendok teh (≈ 2–5 gram). Sesuai selera, mulai sedikit lalu cicipi." },
+  { id: "secukupnya_gula",  name: "Secukupnya (Gula)",  factor: 5, category: "traditional", description: "Takaran awal gula untuk masakan gurih 4–5 porsi: ½–1 sendok teh (≈ 2–5 gram). Untuk masakan manis bisa lebih." },
+
   { id: "catty_id",      name: "Kati (Indonesia)",   factor: 617,     category: "traditional", description: "Indonesian catty used in Javanese markets (~617g)" },
 
   // ═══════════════════════════════════════════
