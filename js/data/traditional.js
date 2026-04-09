@@ -18,6 +18,11 @@ export const traditionalUnits = [
   { id: "sookai",        name: "Sookai",             factor: 5.95,    category: "traditional", description: "Gold measure in Malay Peninsula (~5.95g)", isPreciousMetal: true, metalType: "gold" },
   { id: "real",          name: "Real",               factor: 3.22,    category: "traditional", description: "Gold weight in Malay kingdoms (~3.22g)", isPreciousMetal: true, metalType: "gold" },
 
+  // ── Sistem Emas Aceh ──
+  // Mayam adalah satuan emas paling aktif digunakan di Aceh untuk mahar (jeulamee) dan perhiasan hingga sekarang.
+  { id: "mayam_aceh",    name: "Mayam Aceh",         factor: 3.33,    category: "traditional", description: "Satuan emas utama di Aceh untuk mahar pernikahan dan perhiasan. 1 Mayam ≈ 3.33 gram emas murni (24K). Harga emas sering dikutip per mayam.", isPreciousMetal: true, metalType: "gold", region: "Aceh" },
+  { id: "ci_aceh",       name: "Ci (Aceh)",          factor: 0.333,   category: "traditional", description: "Satuan kecil emas Aceh. 10 Ci = 1 Mayam (≈ 0.333 gram).", isPreciousMetal: true, metalType: "gold", region: "Aceh" },
+
   // ── Sistem Berat Pasar ──
   { id: "kati",          name: "Kati",               factor: 604.8,   category: "traditional", description: "Malay catty, standard market weight (~604.8g), 16 tahil" },
   { id: "pikul",         name: "Pikul",              factor: 60480,   category: "traditional", description: "Malay picul, 100 kati, carried by one person (~60.48kg)" },
@@ -27,24 +32,33 @@ export const traditionalUnits = [
   { id: "bungkai",       name: "Bungkai",            factor: 3.22,    category: "traditional", description: "Acehnese gold weight, used specifically for measuring gold (~3.22g)", isPreciousMetal: true, metalType: "gold" },
 
   // ── Sistem Takaran Aceh (Volume & Beras) ──
-  // Traditional Acehnese grain/volume measurements, still widely used in households, markets, and zakat fitrah
-  // Hierarchy: Kai → Cupak → Mok → Are → Sigantang → Sinalèh → Sigunca
-  // Note: Berat dalam gram untuk beras mentah (bervariasi ±5-10% tergantung jenis beras & cara meratakan)
-  // - 1 Are = 6 Mok
-  // - Zakat fitrah di Aceh biasanya 1 sha' ≈ 2.7–2.8 kg beras ≈ 11 Mok atau 1 Are + 10 Mok
-  // - Semua factor adalah perkiraan untuk beras. Lebih akurat ditimbang langsung
-  //   karena beras berbeda jenis (pendek/panjang) mempengaruhi berat.
+  // Traditional Acehnese grain/volume measurements, still widely used in households, markets, cooking, and zakat fitrah.
+  // Hierarchy: Siblakai → Kai → Cupak → Mok → Are → Sigantang → Sinalèh → Sigunca
+  // Note: Factor dalam gram untuk beras mentah (bervariasi ±5-10% tergantung jenis beras, kepadatan, dan cara meratakan).
+  // - 1 Are (Bambu) = 6 Mok ≈ 1.5 kg
+  // - 1 Mok ≈ 250 gram (kaleng susu kental manis bekas, diratakan)
+  // - Untuk zakat fitrah di Aceh biasanya: 1.5 Are + beberapa sejumput/segenggam agar mencapai 2.7–2.8 kg per jiwa (sesuai Kemenag setempat)
+  // - Semua factor adalah perkiraan rata-rata. Lebih akurat ditimbang langsung.
 
-  { id: "siblakai",      name: "Siblakai",           factor: 175,     category: "traditional", description: "Seperempat liter Aceh (~175g beras), varian kecil dari Kai" },
-  { id: "kai_aceh",      name: "Kai (Sikai)",        factor: 350,     category: "traditional", description: "Satuan kecil Aceh dari batok kelapa/kayu (~0.5 liter ≈ 350g beras)" },
-  { id: "cupak_aceh",    name: "Cupak (Sicupak)",    factor: 700,     category: "traditional", description: "Mangkuk kayu, 2 Kai (~1 liter ≈ 700g beras)" },
-  { id: "mok",           name: "Mok (Mug / Muk)",    factor: 250,     category: "traditional", description: "Paling ikonik: kaleng susu kental manis bekas (~250g beras). Digunakan sehari-hari untuk masak" },
-  { id: "are_aceh",      name: "Are (Aree / Bambu)", factor: 1500,    category: "traditional", description: "Alat takar bambu/besi, 6 Mok (~1.5 kg beras). Umum di pasar dan acara" },
+  // Satuan Kecil (untuk bumbu, penyesuaian, atau zakat)
+  { id: "sihah",         name: "Sihah",              factor: 15,      category: "traditional", description: "Satuan sangat kecil dari ujung jari kelingking hingga jari manis (~10–20 gram beras)" },
+  { id: "sejumput",      name: "Sejumput",           factor: 20,      category: "traditional", description: "Jumlah beras yang dicubit dengan 3 jari (ibu jari, telunjuk, tengah). Rata-rata ≈ 20 gram. Sering dipakai untuk tambahan zakat fitrah." },
+  { id: "segenggam",     name: "Segenggam",          factor: 35,      category: "traditional", description: "Satu genggaman kecil dengan telapak tangan (~30–40 gram beras)" },
+  { id: "sideupa",       name: "Sideupa",            factor: 80,      category: "traditional", description: "Takaran menggunakan lebar telapak tangan (dari ujung kelingking ke ujung telunjuk) ≈ 70–90 gram" },
+
+  // Satuan Standar
+  { id: "siblakai",      name: "Siblakai",           factor: 175,     category: "traditional", description: "Satuan kecil Aceh (~¼ liter ≈ 175 gram beras)" },
+  { id: "kai_aceh",      name: "Kai (Sikai)",        factor: 350,     category: "traditional", description: "Satuan kecil dari batok kelapa atau kayu (~0.5 liter ≈ 350 gram beras)" },
+  { id: "cupak_aceh",    name: "Cupak (Sicupak)",    factor: 700,     category: "traditional", description: "Mangkuk kayu, 2 Kai (~1 liter ≈ 700 gram beras)" },
+  { id: "mok",           name: "Mok (Mug / Muk)",    factor: 250,     category: "traditional", description: "Satuan paling ikonik di Aceh: kaleng susu kental manis bekas (~250 gram beras). Digunakan sehari-hari untuk memasak nasi, kanji, dll." },
+
+  // Satuan Sedang & Besar
+  { id: "are_aceh",      name: "Are (Aree / Bambu)", factor: 1500,    category: "traditional", description: "Alat takar bambu atau besi, 6 Mok (~1.5 kg beras). Sangat umum di pasar tradisional dan acara." },
   { id: "siaree",        name: "Siaree (Siare)",     factor: 1400,    category: "traditional", description: "Satuan sedang (~2 liter ≈ 1.4 kg beras)" },
   { id: "sigantang",     name: "Sigantang (Gantang)",factor: 3000,    category: "traditional", description: "2 Are (~4 liter ≈ 3 kg beras)" },
-  { id: "sinaleh",       name: "Sinalèh (Nalèh)",    factor: 24000,   category: "traditional", description: "16 Are (~24 kg beras) – satuan besar, jarang dipakai sehari-hari" },
-  { id: "sigunca",       name: "Sigunca",            factor: 240000,  category: "traditional", description: "10 Nalèh (~240 kg) – satuan terbesar, biasanya untuk perdagangan bulk atau upacara" },
-
+  { id: "sinaleh",       name: "Sinalèh (Nalèh)",    factor: 24000,   category: "traditional", description: "16 Are (~24 kg beras) – satuan besar, jarang digunakan sehari-hari" },
+  { id: "sigunca",       name: "Sigunca",            factor: 240000,  category: "traditional", description: "10 Nalèh (~240 kg) – satuan terbesar untuk perdagangan bulk atau upacara adat" },
+  
   { id: "catty_id",      name: "Kati (Indonesia)",   factor: 617,     category: "traditional", description: "Indonesian catty used in Javanese markets (~617g)" },
 
   // ═══════════════════════════════════════════
