@@ -1,6 +1,6 @@
 // ─── ui.js — DOM helpers & event wiring ───
 
-import { convert, formatResult, calculateMetalValue, formatIDR, validateMetalUnit, getCrossCategoryNotice } from "./converter.js";
+import { convert, formatResult, calculateMetalValue, formatIDR, validateMetalUnit, getCrossCategoryNotice, getAbsurdConversionNotice } from "./converter.js";
 
 const $ = (sel) => document.querySelector(sel);
 const $$ = (sel) => document.querySelectorAll(sel);
@@ -168,12 +168,22 @@ function doConvert() {
   updateInfo(els.toInfo, allUnits[toKey]);
   hideGoldWarning();
 
-  // Cross-category notice
-  const notice = getCrossCategoryNotice(allUnits[fromKey], allUnits[toKey]);
-  if (notice) {
-    showCrossNotice(notice);
+  // Absurd conversion check (metal ↔ rice) — takes priority
+  const absurd = getAbsurdConversionNotice(
+    allUnits[fromKey], allUnits[toKey],
+    goldConfig, silverConfig,
+    val, result
+  );
+  if (absurd) {
+    showCrossNotice(absurd);
   } else {
-    hideCrossNotice();
+    // Regular cross-category notice
+    const notice = getCrossCategoryNotice(allUnits[fromKey], allUnits[toKey]);
+    if (notice) {
+      showCrossNotice(notice);
+    } else {
+      hideCrossNotice();
+    }
   }
 }
 
