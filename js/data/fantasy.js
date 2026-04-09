@@ -146,4 +146,46 @@ export const fantasyUnits = [
   { id: "ghost_moss",        name: "Ghost Moss",            factor: 3,       category: "fantasy", description: "Luminescent moss from haunted caves" },
   { id: "wyrm_ash",          name: "Wyrm Ash",              factor: 2,       category: "fantasy", description: "Ash residue from a dragon's breath" },
   { id: "crystal_shard",     name: "Elemental Crystal",     factor: 25,      category: "fantasy", description: "Unaligned elemental crystal piece" },
+
+  // ═══════════════════════════════════════════
+  //  EASTERN FANTASY / ISEKAI / CULTIVATION
+  //  Inspired by Anime, Manga, Manhwa, Manhua
+  //  (Solo Leveling, Overlord, Nano Machine, Battle Through the Heavens, etc.)
+  //  Heavy on Mana/Spirit/Qi crystals, Pills, Beast Cores, Divine Artifacts
+  // ═══════════════════════════════════════════
+
+  // ── Shards & Fragments (Tier 2 area) ──
+  { id: "spirit_stone",      name: "Spirit Stone (Low Grade)",   factor: 10,      category: "fantasy", description: "Batu roh tingkat rendah yang mengandung qi/mana, populer di cultivation manhwa" },
+  { id: "beast_core",        name: "Beast Core",                 factor: 8,       category: "fantasy", description: "Inti monster binatang buas, digunakan untuk cultivasi atau crafting pill" },
+  { id: "demon_core",        name: "Demon Core",                 factor: 15,      category: "fantasy", description: "Inti iblis berenergi tinggi, sering muncul di dark fantasy manhwa" },
+  { id: "qi_bead",           name: "Qi Bead",                    factor: 5,       category: "fantasy", description: "Manik qi murni, digunakan untuk meditasi dan breakthrough" },
+  { id: "heavenly_crystal",  name: "Heavenly Crystal Shard",     factor: 12,      category: "fantasy", description: "Kristal surgawi, bahan utama artifact di cultivation story" },
+
+  // ── Stones & Cores (Tier 3 area) ──
+  { id: "mana_crystal",      name: "Mana Crystal (Medium)",      factor: 160,     category: "fantasy", description: "Kristal mana ukuran sedang, sumber energi utama di isekai RPG" },
+  { id: "spirit_pill",       name: "Spirit Pill (High Grade)",   factor: 2,       category: "fantasy", description: "Pil kultivasi berenergi tinggi, berat ringan tapi sangat berharga" },
+  { id: "nascent_soul_frag", name: "Nascent Soul Fragment",      factor: 100,     category: "fantasy", description: "Fragmen jiwa bayi, bahan langka di xianxia-style manhwa" },
+  { id: "dragon_vein_stone", name: "Dragon Vein Stone",          factor: 180,     category: "fantasy", description: "Batu urat naga, sumber qi alam yang sangat murni" },
+
+  // ── Major Artifacts (Tier 4 area) ──
+  { id: "divine_artifact",   name: "Divine Artifact",            factor: 2500,    category: "fantasy", description: "Senjata atau benda suci tingkat dewa, sering muncul di manhwa OP MC" },
+  { id: "spatial_ring",      name: "Spatial Ring",               factor: 15,      category: "fantasy", description: "Cincin ruang dimensi, berat ringan tapi kapasitas besar (ikonik di cultivation story)" },
+  { id: "immortal_pill",     name: "Immortal Pill",              factor: 5,       category: "fantasy", description: "Pil keabadian, sangat ringan tapi efek luar biasa" },
+  { id: "phoenix_blood",     name: "Phoenix Blood Essence",      factor: 1200,    category: "fantasy", description: "Esensi darah phoenix, bahan untuk rebirth atau power up" },
+
+  // ── Ingredients & Reagents (Eastern Style) ──
+  { id: "monster_core",      name: "Monster Core",               factor: 25,      category: "fantasy", description: "Inti monster biasa, bahan dasar crafting dan alchemy" },
+  { id: "heavenly_herb",     name: "Heavenly Spirit Herb",       factor: 10,      category: "fantasy", description: "Tanaman roh surgawi, bahan utama pill kultivasi" },
+  { id: "dragon_blood",      name: "Dragon Blood Vial",          factor: 200,     category: "fantasy", description: "Darah naga murni dalam botol" },
+  { id: "yin_yang_fruit",    name: "Yin-Yang Fruit",             factor: 80,      category: "fantasy", description: "Buah keseimbangan yin-yang, langka di dunia cultivation" },
+  { id: "soul_essence",      name: "Soul Essence Crystal",       factor: 40,      category: "fantasy", description: "Kristal esensi jiwa, digunakan untuk soul weapon atau reincarnation" },
+
+  // ── Tier 5+ — Legendary Eastern ──
+  { id: "world_tree_leaf",   name: "World Tree Leaf",            factor: 50,      category: "fantasy", description: "Daun Pohon Dunia, membawa kebijaksanaan dan usia panjang" },
+  { id: "god_core",          name: "God Core",                   factor: 5000,    category: "fantasy", description: "Inti kekuatan dewa, sumber ultimate power di xianxia" },
+  { id: "primordial_chaos",  name: "Primordial Chaos Fragment",  factor: 10000,   category: "fantasy", description: "Pecahan Kekacauan Primordial, bahan penciptaan dunia" },
+
+  // ── Currency (Eastern Style) ──
+  { id: "spirit_coin",       name: "Spirit Coin",                factor: 5,       category: "fantasy", description: "Mata uang cultivation dunia, terbuat dari spirit stone" },
+  { id: "contribution_pt",   name: "Contribution Point Token",   factor: 1,       category: "fantasy", description: "Token kontribusi sekte, ditukar dengan resource langka" },
 ];
