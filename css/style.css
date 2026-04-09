@@ -506,6 +506,22 @@ select option {
   transition: color var(--transition);
 }
 
+.info-id {
+  display: block;
+  color: var(--text);
+  font-weight: 500;
+  line-height: 1.4;
+}
+
+.info-en {
+  display: block;
+  color: var(--text-3);
+  font-size: 0.75rem;
+  font-style: italic;
+  margin-top: 0.15rem;
+  line-height: 1.35;
+}
+
 /* ─── Swap Button ─── */
 .swap {
   display: flex;
