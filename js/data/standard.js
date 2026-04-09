@@ -1,0 +1,29 @@
+// ─── Standard / SI Weight Units ───
+// factor = grams per 1 unit
+
+export const standardUnits = [
+  { id: "microgram",  name: "Microgram (µg)",    factor: 0.000001, category: "standard", description: "0.000001 g — satuan terkecil untuk mikronutrien" },
+  { id: "milligram",  name: "Milligram (mg)",    factor: 0.001,    category: "standard", description: "0.001 g — untuk obat & suplemen" },
+  { id: "centigram",  name: "Centigram (cg)",    factor: 0.01,     category: "standard", description: "0.01 g — jarang dipakai, mostly di lab" },
+  { id: "decigram",   name: "Decigram (dg)",     factor: 0.1,      category: "standard", description: "0.1 g — 1/10 gram" },
+  { id: "gram",       name: "Gram (g)",          factor: 1,        category: "standard", description: "1 g — satuan dasar SI untuk massa" },
+  { id: "decagram",   name: "Decagram (dag)",    factor: 10,       category: "standard", description: "10 g — kadang dipakai di resep Eropa" },
+  { id: "hectogram",  name: "Hectogram (hg)",    factor: 100,      category: "standard", description: "100 g — populer di pasar Italia & Eropa" },
+  { id: "kilogram",   name: "Kilogram (kg)",     factor: 1000,     category: "standard", description: "1000 g — satuan standar sehari-hari" },
+  { id: "tonne",      name: "Metric Ton (t)",    factor: 1000000,  category: "standard", description: "1 juta g (1000 kg) — untuk industri & kargo" },
+  { id: "grain",      name: "Grain (gr)",        factor: 0.06479891, category: "standard", description: "≈0.065 g — berat satu biji gandum, dasar avoirdupois" },
+  { id: "dram",       name: "Dram (dr)",         factor: 1.7718452,  category: "standard", description: "≈1.77 g — 1/16 ounce, avoirdupois" },
+  { id: "ounce",      name: "Ounce (oz)",        factor: 28.349523125, category: "standard", description: "≈28.35 g — avoirdupois ounce, umum di AS & UK" },
+  { id: "pound",      name: "Pound (lb)",        factor: 453.59237,  category: "standard", description: "≈453.6 g — 16 ounce, satuan berat utama AS" },
+  { id: "stone",      name: "Stone (st)",        factor: 6350.29318, category: "standard", description: "≈6.35 kg — 14 pound, dipakai di UK untuk berat badan" },
+  { id: "quarter",    name: "Quarter (qr)",      factor: 11339.80925, category: "standard", description: "≈11.34 kg — 1/4 hundredweight" },
+  { id: "short_hundredweight", name: "Short Hundredweight (cwt)", factor: 45359.237, category: "standard", description: "≈45.36 kg — US hundredweight (100 lb)" },
+  { id: "long_hundredweight",  name: "Long Hundredweight (cwt)",  factor: 50802.34544, category: "standard", description: "≈50.8 kg — Imperial hundredweight (112 lb)" },
+  { id: "short_ton",  name: "Short Ton (US)",    factor: 907184.74,  category: "standard", description: "≈907.2 kg — US ton (2000 lb)" },
+  { id: "long_ton",   name: "Long Ton (Imperial)", factor: 1016046.9088, category: "standard", description: "≈1016 kg — Imperial ton (2240 lb)" },
+  { id: "troy_ounce", name: "Troy Ounce (ozt)",  factor: 31.1034768, category: "standard", description: "≈31.1 g — standar internasional emas & perak" },
+  { id: "troy_pound", name: "Troy Pound (lbt)",  factor: 373.2417216, category: "standard", description: "≈373.2 g — 12 troy ounce" },
+  { id: "carat",      name: "Carat (ct)",        factor: 0.2,        category: "standard", description: "0.2 g — standar internasional berat batu permata" },
+  { id: "dalton",     name: "Dalton (Da)",       factor: 1.66054e-24, category: "standard", description: "≈1.66×10⁻²⁴ g — satuan massa atom" },
+  { id: "slug",       name: "Slug",              factor: 14593.903,  category: "standard", description: "≈14.6 kg — satuan massa imperial, jarang dipakai" },
+];
