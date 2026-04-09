@@ -766,28 +766,4 @@ select optgroup {
   100% { background-position: 200% center; }
 }
 
-.footer-links {
-  margin-top: 0.75rem;
-  display: flex;
-  justify-content: center;
-  gap: 0.5rem;
-  align-items: center;
-}
 
-.footer-links a {
-  font-size: 0.75rem;
-  color: var(--text-3);
-  text-decoration: none;
-  transition: color var(--transition);
-  font-weight: 500;
-}
-
-.footer-links a:hover {
-  color: var(--accent);
-}
-
-.footer-sep {
-  color: var(--text-3);
-  opacity: 0.4;
-  font-size: 0.75rem;
-}
