@@ -1,6 +1,6 @@
 // ─── ui.js — DOM helpers & event wiring ───
 
-import { convert, formatResult, calculateMetalValue, formatIDR, validateMetalUnit } from "./converter.js";
+import { convert, formatResult, calculateMetalValue, formatIDR, validateMetalUnit, getCrossCategoryNotice } from "./converter.js";
 
 const $ = (sel) => document.querySelector(sel);
 const $$ = (sel) => document.querySelectorAll(sel);
@@ -42,6 +42,7 @@ function cacheDom() {
   els.customPriceInput = $("#customPriceInput");
   els.customPriceBtn   = $("#customPriceBtn");
   els.customPriceReset = $("#customPriceReset");
+  els.crossNotice    = $("#crossCategoryNotice");
 }
 
 // ─── Theme ───
@@ -166,6 +167,14 @@ function doConvert() {
   updateInfo(els.fromInfo, allUnits[fromKey]);
   updateInfo(els.toInfo, allUnits[toKey]);
   hideGoldWarning();
+
+  // Cross-category notice
+  const notice = getCrossCategoryNotice(allUnits[fromKey], allUnits[toKey]);
+  if (notice) {
+    showCrossNotice(notice);
+  } else {
+    hideCrossNotice();
+  }
 }
 
 function doGoldConvert() {
@@ -242,6 +251,21 @@ function hideGoldWarning() {
   if (els.goldWarning) {
     els.goldWarning.style.display = "none";
     els.goldWarning.textContent = "";
+  }
+}
+
+// ─── Cross-Category Notice ───
+function showCrossNotice(notice) {
+  if (!els.crossNotice) return;
+  els.crossNotice.textContent = `${notice.emoji} ${notice.message}`;
+  els.crossNotice.className = `cross-notice cross-notice-${notice.severity}`;
+  els.crossNotice.style.display = "block";
+}
+
+function hideCrossNotice() {
+  if (els.crossNotice) {
+    els.crossNotice.style.display = "none";
+    els.crossNotice.textContent = "";
   }
 }
 
