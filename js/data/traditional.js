@@ -39,6 +39,14 @@ export const traditionalUnits = [
   // - 1 Mok ≈ 250 gram (kaleng susu kental manis bekas, diratakan)
   // - Untuk zakat fitrah di Aceh biasanya: 1.5 Are + beberapa sejumput/segenggam agar mencapai 2.7–2.8 kg per jiwa (sesuai Kemenag setempat)
   // - Semua factor adalah perkiraan rata-rata. Lebih akurat ditimbang langsung.
+  
+  // Catatan Penting Zakat Fitrah Aceh (2025–2026):
+  // - Mayoritas kabupaten/kota di Aceh menetapkan 1 Sha' = 2.8 kg beras per jiwa
+  // - Takaran tradisional yang masih dipakai: 
+  //   • 1.5 Bambu (Are) + 1 atau 2 Segenggam
+  //   • 10 Mok penuh + 1 Segenggam, atau 11 Mok
+  //   • Sekitar 3.1 liter beras
+  // - Selalu ikuti pengumuman resmi Kemenag kabupaten/kota masing-masing karena bisa sedikit berbeda.
 
   // Satuan Kecil (untuk bumbu, penyesuaian, atau zakat)
   { id: "sihah",         name: "Sihah",              factor: 15,      category: "traditional", description: "Satuan sangat kecil dari ujung jari kelingking hingga jari manis (~10–20 gram beras)" },
@@ -58,6 +66,11 @@ export const traditionalUnits = [
   { id: "sigantang",     name: "Sigantang (Gantang)",factor: 3000,    category: "traditional", description: "2 Are (~4 liter ≈ 3 kg beras)" },
   { id: "sinaleh",       name: "Sinalèh (Nalèh)",    factor: 24000,   category: "traditional", description: "16 Are (~24 kg beras) – satuan besar, jarang digunakan sehari-hari" },
   { id: "sigunca",       name: "Sigunca",            factor: 240000,  category: "traditional", description: "10 Nalèh (~240 kg) – satuan terbesar untuk perdagangan bulk atau upacara adat" },
+  
+  // ── Satuan Khusus Zakat Fitrah Aceh ──
+  // Berdasarkan ketetapan Kemenag Aceh (umumnya 2.7–2.8 kg beras per jiwa untuk tahun 2025–2026)
+  { id: "sha_aceh",      name: "Sha' (Zakat Fitrah)", factor: 2800,   category: "traditional", description: "Satuan zakat fitrah utama di Aceh. 1 Sha' ≈ 2.8 kg beras per jiwa (Mazhab Syafi'i). Bervariasi 2.7–2.8 kg antar kabupaten." },
+  { id: "sha_tradisional", name: "Sha' Tradisional",  factor: 2750,   category: "traditional", description: "Takaran tradisional zakat fitrah: 1.5 Are (Bambu) + 1–2 Segenggam atau 10–11 Mok + sejumput/segenggam (≈ 2.7–2.8 kg)" },
   
   { id: "catty_id",      name: "Kati (Indonesia)",   factor: 617,     category: "traditional", description: "Indonesian catty used in Javanese markets (~617g)" },
 
