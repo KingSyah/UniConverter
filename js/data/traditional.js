@@ -1,95 +1,167 @@
 // ─── Traditional & Historical Weight Units ───
 // factor = grams per 1 unit
+// Sources: trade records, colonial-era standards, regional market usage
 
 export const traditionalUnits = [
-  // ── Chinese ──
-  { id: "jin",         name: "Jin (斤)",          factor: 500,     category: "traditional", description: "Chinese catty — 0.5 kg" },
-  { id: "liang",       name: "Liang (两)",         factor: 50,      category: "traditional", description: "Chinese tael — 50 g" },
-  { id: "qian",        name: "Qian (钱)",          factor: 5,       category: "traditional", description: "Chinese mace — 5 g" },
-  { id: "fen",         name: "Fen (分)",           factor: 0.5,     category: "traditional", description: "Chinese candareen — 0.5 g" },
-  { id: "li_cn",       name: "Li (厘)",            factor: 0.05,    category: "traditional", description: "Chinese li — 0.05 g" },
-  { id: "dan",         name: "Dan (担)",           factor: 50000,   category: "traditional", description: "Chinese picul — 50 kg" },
-  { id: "jun",         name: "Jun (钧)",           factor: 7500,    category: "traditional", description: "Ancient Chinese unit — 7.5 kg" },
-  { id: "shi",         name: "Shi (石)",           factor: 50000,   category: "traditional", description: "Stone-weight in Chinese — 50 kg" },
 
-  // ── Malay / Southeast Asian ──
-  { id: "tahil",       name: "Tahil",             factor: 37.8,    category: "traditional", description: "Malay/Chinese tael ≈ 37.8 g" },
-  { id: "kati",        name: "Kati",              factor: 604.8,   category: "traditional", description: "Malay catty ≈ 604.8 g" },
-  { id: "pikul",       name: "Pikul",             factor: 60480,   category: "traditional", description: "Malay pikul ≈ 60.48 kg" },
-  { id: "kupang",      name: "Kupang",            factor: 0.64,    category: "traditional", description: "Small Malay unit ≈ 0.64 g" },
-  { id: "mayam",       name: "Mayam",             factor: 3.33,    category: "traditional", description: "Traditional Malay ≈ 3.33 g" },
-  { id: "bungkal",     name: "Bungkal",           factor: 1.6,     category: "traditional", description: "Malay bungkal ≈ 1.6 g" },
-  { id: "sookai",      name: "Sookai",            factor: 6.05,    category: "traditional", description: "Malay sookai ≈ 6.05 g" },
-  { id: "real",        name: "Real",              factor: 3.33,    category: "traditional", description: "Malay real ≈ 3.33 g" },
+  // ═══════════════════════════════════════════
+  //  INDONESIA / NUSANTARA
+  //  Gold trade, pasar tradisional, colonial era
+  // ═══════════════════════════════════════════
 
-  // ── Japanese ──
-  { id: "kan",         name: "Kan (貫)",           factor: 3750,    category: "traditional", description: "Japanese kan — 3.75 kg" },
-  { id: "monme_jp",    name: "Monme (匁)",         factor: 3.75,    category: "traditional", description: "Japanese monme — 3.75 g" },
-  { id: "kin_jp",      name: "Kin (斤)",           factor: 600,     category: "traditional", description: "Japanese kin — 600 g" },
-  { id: "ryou",        name: "Ryō (両)",           factor: 15,      category: "traditional", description: "Japanese ryō — 15 g" },
-  { id: "momme",       name: "Momme",             factor: 3.75,    category: "traditional", description: "Japanese pearl weight — 3.75 g" },
+  // ── Sistem Emas & Perhiasan ──
+  { id: "mayam",         name: "Mayam",              factor: 3.22,    category: "traditional", description: "Nusantara gold weight unit, used for jewelry and trade (~3.22g)" },
+  { id: "kupang",        name: "Kupang",             factor: 0.64,    category: "traditional", description: "Small Nusantara unit, 1/5 mayam, used for tiny gold items (~0.64g)" },
+  { id: "saga",          name: "Saga",               factor: 0.0645,  category: "traditional", description: "Minuscule Nusantara unit, 1/10 kupang (~0.0645g)" },
+  { id: "biji_merah",    name: "Biji Merah",         factor: 0.125,   category: "traditional", description: "Red seed weight used in Malay gold trade (~0.125g)" },
+  { id: "tahil",         name: "Tahil",              factor: 37.8,    category: "traditional", description: "Malay/Chinese tael, standard in Nusantara trade (~37.8g)" },
+  { id: "sookai",        name: "Sookai",             factor: 5.95,    category: "traditional", description: "Gold measure in Malay Peninsula (~5.95g)" },
+  { id: "real",          name: "Real",               factor: 3.22,    category: "traditional", description: "Gold weight in Malay kingdoms (~3.22g)" },
 
-  // ── Indian ──
-  { id: "ser",         name: "Ser (Seer)",        factor: 933.1,   category: "traditional", description: "Indian seer ≈ 933.1 g" },
-  { id: "maund",       name: "Maund",             factor: 37324.2, category: "traditional", description: "Indian maund ≈ 37.32 kg" },
-  { id: "tola",        name: "Tola",              factor: 11.6638, category: "traditional", description: "Indian tola ≈ 11.66 g" },
-  { id: "ratti",       name: "Ratti",             factor: 0.1215,  category: "traditional", description: "Indian ratti ≈ 0.1215 g" },
-  { id: "masha",       name: "Masha",             factor: 0.972,   category: "traditional", description: "Indian masha ≈ 0.972 g" },
-  { id: "gunja",       name: "Gunja",             factor: 0.1215,  category: "traditional", description: "Indian gunja (Abrus seed) ≈ 0.1215 g" },
-  { id: "pal",         name: "Pal",               factor: 3.75,    category: "traditional", description: "South Indian pal ≈ 3.75 g" },
+  // ── Sistem Berat Pasar ──
+  { id: "kati",          name: "Kati",               factor: 604.8,   category: "traditional", description: "Malay catty, standard market weight (~604.8g), 16 tahil" },
+  { id: "pikul",         name: "Pikul",              factor: 60480,   category: "traditional", description: "Malay picul, 100 kati, carried by one person (~60.48kg)" },
+  { id: "bungkal",       name: "Bungkal",            factor: 1.61,    category: "traditional", description: "Small Malay weight unit (~1.61g)" },
+  { id: "catty_id",      name: "Kati (Indonesia)",   factor: 617,     category: "traditional", description: "Indonesian catty used in Javanese markets (~617g)" },
 
-  // ── Middle Eastern / Islamic ──
-  { id: "mithqal",     name: "Mithqal",           factor: 4.25,    category: "traditional", description: "Islamic mithqal ≈ 4.25 g" },
-  { id: "dirham_wt",   name: "Dirham (weight)",   factor: 2.975,   category: "traditional", description: "Islamic dirham ≈ 2.975 g" },
-  { id: "rotl",        name: "Rotl (Ratl)",       factor: 447.2,   category: "traditional", description: "Medieval Islamic rotl ≈ 447.2 g" },
-  { id: "okka",        name: "Okka",              factor: 1282.6,  category: "traditional", description: "Ottoman okka ≈ 1282.6 g" },
-  { id: "batman",      name: "Batman",            factor: 7695.6,  category: "traditional", description: "Ottoman batman ≈ 7.7 kg" },
-  { id: "chequi",      name: "Cheki",             factor: 507.5,   category: "traditional", description: "Ottoman cheki ≈ 507.5 g" },
+  // ═══════════════════════════════════════════
+  //  CHINA
+  //  Sistem jīn-liǎng (斤两), used in trade since Tang dynasty
+  // ═══════════════════════════════════════════
 
-  // ── European Historical ──
-  { id: "livre",       name: "Livre (French)",     factor: 489.5,   category: "traditional", description: "French livre ≈ 489.5 g" },
-  { id: "marc",        name: "Marc",              factor: 244.75,  category: "traditional", description: "French marc ≈ 244.75 g" },
-  { id: "once_fr",     name: "Once (French)",     factor: 30.59,   category: "traditional", description: "French once ≈ 30.59 g" },
-  { id: "pfund",       name: "Pfund (German)",    factor: 500,     category: "traditional", description: "German pfund — 500 g" },
-  { id: "zentner",     name: "Zentner (German)",  factor: 50000,   category: "traditional", description: "German zentner — 50 kg" },
-  { id: "libra",       name: "Libra (Roman)",     factor: 328.9,   category: "traditional", description: "Roman libra ≈ 328.9 g" },
-  { id: "uncia",       name: "Uncia (Roman)",     factor: 27.4,    category: "traditional", description: "Roman uncia ≈ 27.4 g" },
-  { id: "mina",        name: "Mina (Greek)",      factor: 436,     category: "traditional", description: "Greek mina ≈ 436 g" },
-  { id: "talent",      name: "Talent (Greek)",    factor: 26160,   category: "traditional", description: "Greek talent ≈ 26.16 kg" },
-  { id: "obol",        name: "Obol (Greek)",      factor: 0.72,    category: "traditional", description: "Greek obol ≈ 0.72 g" },
-  { id: "drachma",     name: "Drachma (Greek)",   factor: 4.36,    category: "traditional", description: "Greek drachma ≈ 4.36 g" },
-  { id: "pond_nl",     name: "Pond (Dutch)",      factor: 494,     category: "traditional", description: "Dutch pond ≈ 494 g" },
+  // ── Modern Chinese (市制 shìzhì) ──
+  { id: "jin",           name: "Jin (斤)",           factor: 500,     category: "traditional", description: "Chinese catty, modern standard — exactly 500g" },
+  { id: "liang",         name: "Liang (两)",          factor: 50,      category: "traditional", description: "Chinese tael, 1/10 jin — 50g, used for gold and silver" },
+  { id: "qian",          name: "Qian (钱)",           factor: 5,       category: "traditional", description: "Chinese mace, 1/10 liang — 5g" },
+  { id: "fen_cn",        name: "Fen (分)",            factor: 0.5,     category: "traditional", description: "Chinese candareen, 1/10 qian — 0.5g" },
+  { id: "li_cn",         name: "Li (厘)",             factor: 0.05,    category: "traditional", description: "Chinese li, 1/10 fen — 0.05g" },
+  { id: "dan",           name: "Dan (担)",            factor: 50000,   category: "traditional", description: "Chinese picul, 100 jin — 50kg, for bulk grain and trade" },
+  { id: "jun",           name: "Jun (钧)",            factor: 7500,    category: "traditional", description: "Ancient Chinese unit, 30 jin — 7.5kg" },
 
-  // ── African ──
-  { id: "kantar",      name: "Kantar",            factor: 44928,   category: "traditional", description: "North African kantar ≈ 44.93 kg" },
-  { id: "oke",         name: "Oke",               factor: 1282.6,  category: "traditional", description: "North African oke ≈ 1282.6 g" },
-  { id: "manzadi",     name: "Manzadi",           factor: 70,      category: "traditional", description: "Swahili manzadi ≈ 70 g" },
-  { id: "frasila",     name: "Frasila",           factor: 17460,   category: "traditional", description: "East African frasila ≈ 17.46 kg" },
+  // ── Historical Chinese (used before 1929 reform) ──
+  { id: "jin_old",       name: "Jin (旧斤)",          factor: 596.8,   category: "traditional", description: "Pre-reform Chinese catty (~596.8g), used in Qing dynasty trade" },
+  { id: "liang_old",     name: "Liang (旧两)",         factor: 37.3,    category: "traditional", description: "Pre-reform tael (~37.3g), used for opium and silver trade" },
 
-  // ── Korean ──
-  { id: "geun_kr",     name: "Geun (근)",          factor: 600,     category: "traditional", description: "Korean geun — 600 g" },
-  { id: "nyang_kr",    name: "Nyang (냥)",         factor: 37.5,    category: "traditional", description: "Korean nyang ≈ 37.5 g" },
-  { id: "don_kr",      name: "Don (돈)",           factor: 3.75,    category: "traditional", description: "Korean don ≈ 3.75 g" },
+  // ═══════════════════════════════════════════
+  //  INDIA / SOUTH ASIA
+  //  Tola-ratti system, used for gold to this day
+  // ═══════════════════════════════════════════
 
-  // ── Thai ──
-  { id: "chang",       name: "Chang",             factor: 1600,    category: "traditional", description: "Thai chang ≈ 1.6 kg" },
-  { id: "tamleung",    name: "Tamleung",          factor: 60,      category: "traditional", description: "Thai tamleung ≈ 60 g" },
-  { id: "baht_th",     name: "Baht (Thai)",       factor: 15,      category: "traditional", description: "Thai baht (gold weight) ≈ 15 g" },
-  { id: "salung",      name: "Salung",            factor: 3.75,    category: "traditional", description: "Thai salung ≈ 3.75 g" },
-  { id: "fuang",       name: "Fuang",             factor: 1.875,   category: "traditional", description: "Thai fuang ≈ 1.875 g" },
+  // ── Gold & Precious Metals ──
+  { id: "tola",          name: "Tola",               factor: 11.6638, category: "traditional", description: "Indian gold weight, still used in South Asian bullion trade (~11.66g)" },
+  { id: "masha",         name: "Masha",              factor: 0.97,    category: "traditional", description: "1/12 tola, used in Indian jewelry making (~0.97g)" },
+  { id: "ratti",         name: "Ratti",              factor: 0.1215,  category: "traditional", description: "Indian seed weight, 1/8 masha, basis for carat (~0.1215g)" },
+  { id: "gunja",         name: "Gunja",              factor: 0.1215,  category: "traditional", description: "Abrus precatorius seed, original ratti standard (~0.1215g)" },
 
-  // ── Myanmar ──
-  { id: "viss",        name: "Viss",              factor: 1632.93, category: "traditional", description: "Burmese viss ≈ 1.633 kg" },
-  { id: "kyat_mm",     name: "Kyat",              factor: 16.3293, category: "traditional", description: "Burmese kyat ≈ 16.33 g" },
-  { id: "petha",       name: "Petha",             factor: 1.6329,  category: "traditional", description: "Burmese petha ≈ 1.633 g" },
-  { id: "moo",         name: "Moo",               factor: 0.204,   category: "traditional", description: "Burmese moo ≈ 0.204 g" },
+  // ── Market & Bulk ──
+  { id: "ser",           name: "Ser (Seer)",         factor: 933.1,   category: "traditional", description: "Indian market weight, ~80 tola (~933.1g)" },
+  { id: "maund",         name: "Maund",              factor: 37324.2, category: "traditional", description: "Indian bulk weight, 40 ser (~37.32kg), used for grain" },
+  { id: "chatak",        name: "Chatak",             factor: 58.32,   category: "traditional", description: "Indian weight, 1/16 ser (~58.3g)" },
+  { id: "pala",          name: "Pala",               factor: 46.66,   category: "traditional", description: "Ancient Indian weight, 4 tola (~46.66g)" },
+  { id: "dharana",       name: "Dharana",            factor: 3.48,    category: "traditional", description: "Ancient Indian silver weight (~3.48g)" },
+  { id: "karsha",        name: "Karsha",             factor: 11.66,   category: "traditional", description: "Ayurvedic measurement, equal to 1 tola (~11.66g)" },
 
-  // ── Miscellaneous ──
-  { id: "jin_tw",      name: "Jin (Taiwan)",      factor: 600,     category: "traditional", description: "Taiwanese jin — 600 g" },
-  { id: "catty_sg",    name: "Catty (Singapore)", factor: 604.8,   category: "traditional", description: "Singapore catty ≈ 604.8 g" },
-  { id: "tael_hk",     name: "Tael (Hong Kong)",  factor: 37.429,  category: "traditional", description: "Hong Kong tael ≈ 37.43 g" },
-  { id: "jin_vn",      name: "Cân (Vietnam)",     factor: 604.8,   category: "traditional", description: "Vietnamese cân ≈ 604.8 g" },
-  { id: "chi_vn",      name: "Chỉ (Vietnam)",     factor: 3.78,    category: "traditional", description: "Vietnamese chỉ ≈ 3.78 g" },
-  { id: "luong_vn",    name: "Lượng (Vietnam)",   factor: 37.8,    category: "traditional", description: "Vietnamese lượng ≈ 37.8 g" },
-  { id: "yin",         name: "Yin (斤, old)",     factor: 596.8,   category: "traditional", description: "Historical Chinese yin ≈ 596.8 g" },
+  // ═══════════════════════════════════════════
+  //  ISLAMIC / MIDDLE EASTERN
+  //  Mithqal-dirham system, Islamic jurisprudence
+  // ═══════════════════════════════════════════
+
+  { id: "mithqal",       name: "Mithqal",            factor: 4.25,    category: "traditional", description: "Islamic gold weight, used in zakat calculation (~4.25g)" },
+  { id: "dirham_wt",     name: "Dirham (weight)",    factor: 2.975,   category: "traditional", description: "Islamic silver weight, 7/10 mithqal (~2.975g)" },
+  { id: "rotl",          name: "Rotl (Ratl)",        factor: 447.2,   category: "traditional", description: "Medieval Islamic pound (~447.2g), used in bazaar trade" },
+  { id: "okka",          name: "Okka",               factor: 1282.6,  category: "traditional", description: "Ottoman market weight (~1.28kg), equal to 400 dirham" },
+  { id: "batman",        name: "Batman",             factor: 7695.6,  category: "traditional", description: "Ottoman bulk weight, 6 okka (~7.7kg)" },
+  { id: "chequi",        name: "Cheki",              factor: 507.5,   category: "traditional", description: "Ottoman market weight (~507.5g)" },
+  { id: "wakkiyyah",     name: "Wakkiyyah",          factor: 32.07,   category: "traditional", description: "Islamic ounce, 1/40 rotl (~32.07g)" },
+
+  // ═══════════════════════════════════════════
+  //  THAILAND
+  //  Baht-Tamleung system, still used for gold
+  // ═══════════════════════════════════════════
+
+  { id: "baht_th",       name: "Baht (บาท)",          factor: 15.244,  category: "traditional", description: "Thai gold weight, standard in Thai gold shops (~15.24g)" },
+  { id: "tamleung",      name: "Tamleung (ตำลึง)",     factor: 60.976,  category: "traditional", description: "Thai tael, 4 baht (~60.98g)" },
+  { id: "chang_th",      name: "Chang (ชั่ง)",        factor: 1219.52, category: "traditional", description: "Thai chang, 20 tamleung (~1.22kg)" },
+  { id: "salung",        name: "Salung (สลึง)",       factor: 3.811,   category: "traditional", description: "Thai quarter-baht, 1/4 baht (~3.81g)" },
+  { id: "fuang",         name: "Fuang (เฟื้อง)",       factor: 1.906,   category: "traditional", description: "Thai half-salung (~1.91g)" },
+  { id: "pai",           name: "Pai (ไพ)",            factor: 0.953,   category: "traditional", description: "Thai smallest weight, half-fuang (~0.95g)" },
+
+  // ═══════════════════════════════════════════
+  //  JAPAN
+  //  Monme-Kan system, Edo period standard
+  // ═══════════════════════════════════════════
+
+  { id: "kan",           name: "Kan (貫)",            factor: 3750,    category: "traditional", description: "Japanese kan, 1000 monme (~3.75kg), measured by coins" },
+  { id: "monme_jp",      name: "Monme (匁)",          factor: 3.75,    category: "traditional", description: "Japanese weight, used for silver trade (~3.75g)" },
+  { id: "kin_jp",        name: "Kin (斤)",            factor: 600,     category: "traditional", description: "Japanese catty, 160 monme — 600g" },
+  { id: "ryou",          name: "Ryō (両)",            factor: 15,      category: "traditional", description: "Japanese gold coin weight, 4 monme — 15g" },
+  { id: "momme",         name: "Momme",              factor: 3.75,    category: "traditional", description: "International spelling of monme, standard for pearls (~3.75g)" },
+  { id: "hyakume",       name: "Hyakume (百目)",       factor: 375,     category: "traditional", description: "Japanese 100 monme (~375g), common market weight" },
+
+  // ═══════════════════════════════════════════
+  //  KOREA
+  //  Geun-Nyang system
+  // ═══════════════════════════════════════════
+
+  { id: "geun_kr",       name: "Geun (근)",           factor: 600,     category: "traditional", description: "Korean catty, 16 nyang — 600g" },
+  { id: "nyang_kr",      name: "Nyang (냥)",          factor: 37.5,    category: "traditional", description: "Korean tael, used for gold — 37.5g" },
+  { id: "don_kr",        name: "Don (돈)",            factor: 3.75,    category: "traditional", description: "Korean small weight, 1/10 nyang — 3.75g" },
+  { id: "hop_kr",        name: "Hop (홉)",            factor: 0.375,   category: "traditional", description: "Korean minuscule weight, 1/10 don — 0.375g" },
+
+  // ═══════════════════════════════════════════
+  //  MYANMAR / BURMA
+  // ═══════════════════════════════════════════
+
+  { id: "viss",          name: "Viss",               factor: 1632.93, category: "traditional", description: "Burmese market weight (~1.63kg), 100 kyat" },
+  { id: "kyat_mm",       name: "Kyat",               factor: 16.33,   category: "traditional", description: "Burmese weight, used in daily trade (~16.33g)" },
+  { id: "petha",         name: "Petha",              factor: 1.63,    category: "traditional", description: "Burmese small weight, 1/10 kyat (~1.63g)" },
+  { id: "moo",           name: "Moo",                factor: 0.204,   category: "traditional", description: "Burmese tiny weight, 1/8 petha (~0.204g)" },
+
+  // ═══════════════════════════════════════════
+  //  VIETNAM
+  // ═══════════════════════════════════════════
+
+  { id: "can_vn",        name: "Cân (Vietnam)",       factor: 604.8,   category: "traditional", description: "Vietnamese catty (~604.8g), used in market trade" },
+  { id: "luong_vn",      name: "Lượng",              factor: 37.8,    category: "traditional", description: "Vietnamese tael, 1/16 cân (~37.8g)" },
+  { id: "chi_vn",        name: "Chỉ",                factor: 3.78,    category: "traditional", description: "Vietnamese small weight, 1/10 lượng (~3.78g)" },
+  { id: "phan_vn",       name: "Phân",               factor: 0.378,   category: "traditional", description: "Vietnamese tiny weight, 1/10 chỉ (~0.378g)" },
+  { id: "tac_vn",        name: "Tắc",                factor: 0.0378,  category: "traditional", description: "Vietnamese minuscule weight, 1/10 phân (~0.0378g)" },
+
+  // ═══════════════════════════════════════════
+  //  EUROPEAN HISTORICAL
+  // ═══════════════════════════════════════════
+
+  // ── Roman / Greek ──
+  { id: "libra",         name: "Libra (Roman)",      factor: 328.9,   category: "traditional", description: "Roman pound (~328.9g), origin of 'lb'" },
+  { id: "uncia",         name: "Uncia (Roman)",      factor: 27.4,    category: "traditional", description: "Roman ounce, 1/12 libra (~27.4g), origin of 'oz'" },
+  { id: "mina",          name: "Mina (Greek)",       factor: 436,     category: "traditional", description: "Greek mina (~436g), 100 drachma" },
+  { id: "talent",        name: "Talent (Greek)",     factor: 26160,   category: "traditional", description: "Greek talent (~26.16kg), 60 mina — largest ancient unit" },
+  { id: "drachma",       name: "Drachma (Greek)",    factor: 4.36,    category: "traditional", description: "Greek weight (~4.36g), origin of currency" },
+  { id: "obol",          name: "Obol (Greek)",       factor: 0.727,   category: "traditional", description: "Greek small weight (~0.73g), 1/6 drachma" },
+
+  // ── French ──
+  { id: "livre",         name: "Livre (French)",     factor: 489.5,   category: "traditional", description: "French pound (~489.5g), used before metric system" },
+  { id: "once_fr",       name: "Once (French)",      factor: 30.59,   category: "traditional", description: "French ounce, 1/16 livre (~30.59g)" },
+  { id: "marc",          name: "Marc (French)",      factor: 244.75,  category: "traditional", description: "French half-livre (~244.75g), used for silver" },
+  { id: "gros_fr",       name: "Gros (French)",      factor: 3.82,    category: "traditional", description: "French gros, 1/8 once (~3.82g)" },
+
+  // ── German ──
+  { id: "pfund",         name: "Pfund (German)",     factor: 500,     category: "traditional", description: "German pound — exactly 500g (metric reform)" },
+  { id: "zentner",       name: "Zentner (German)",   factor: 50000,   category: "traditional", description: "German hundredweight, 100 pfund — 50kg" },
+  { id: "loth",          name: "Loth (German)",      factor: 15.625,  category: "traditional", description: "German small weight, 1/32 pfund (~15.625g)" },
+
+  // ── Dutch ──
+  { id: "pond_nl",       name: "Pond (Dutch)",       factor: 494,     category: "traditional", description: "Dutch pound (~494g), used in VOC trade" },
+  { id: "ons_nl",        name: "Ons (Dutch)",        factor: 100,     category: "traditional", description: "Dutch ons, modern standard — 100g" },
+
+  // ── British ──
+  { id: "grain_uk",      name: "Grain",              factor: 0.0648,  category: "traditional", description: "Oldest English weight, based on barley grain (~0.0648g)" },
+
+  // ═══════════════════════════════════════════
+  //  REGIONAL VARIANTS (same system, different locale)
+  // ═══════════════════════════════════════════
+
+  { id: "tael_hk",       name: "Tael (Hong Kong)",   factor: 37.429,  category: "traditional", description: "Hong Kong tael (~37.43g), used in Cantonese gold trade" },
+  { id: "tael_sg",       name: "Tael (Singapore)",   factor: 37.799,  category: "traditional", description: "Singapore tael (~37.8g), used in local gold shops" },
+  { id: "catty_sg",      name: "Catty (Singapore)",  factor: 604.8,   category: "traditional", description: "Singapore catty (~604.8g), 16 tael" },
 ];
