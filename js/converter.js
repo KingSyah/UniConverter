@@ -86,6 +86,53 @@ export function calculateMetalValue(value, unit, goldConfig, silverConfig) {
 }
 
 /**
+ * Generate a warning notice for cross-category conversion.
+ * Returns null if same category, otherwise returns a notice object.
+ * @param {object} fromUnit
+ * @param {object} toUnit
+ * @returns {{ message: string, emoji: string, severity: "info"|"warning" } | null}
+ */
+export function getCrossCategoryNotice(fromUnit, toUnit) {
+  if (!fromUnit || !toUnit) return null;
+  const a = fromUnit.category;
+  const b = toUnit.category;
+  if (a === b) return null;
+
+  const labels = { standard: "Standard / SI", traditional: "Traditional / Historical", fantasy: "Fantasy / Arcane", custom: "Custom" };
+
+  if (a === "standard" && b === "standard") return null;
+
+  // Same-system cross (e.g. both Asian traditional) is less weird
+  const isCrossRealm = (a === "fantasy" || b === "fantasy");
+  const isCrossRealWorld = (a === "standard" && b === "traditional") || (a === "traditional" && b === "standard");
+
+  const fromLabel = labels[a] || a;
+  const toLabel = labels[b] || b;
+
+  if (isCrossRealm) {
+    return {
+      message: `Converting ${fromLabel} → ${toLabel}: hasil akurat secara matematis, tapi ${b === "fantasy" ? toUnit.name : fromUnit.name} adalah satuan fiksi. Jangan dipakai beli emas ya 😄`,
+      emoji: "⚡",
+      severity: "info"
+    };
+  }
+
+  if (isCrossRealWorld) {
+    return {
+      message: `${fromLabel} → ${toLabel}: konversi akurat (keduanya satuan nyata), tapi perhatikan konteks penggunaan.`,
+      emoji: "📐",
+      severity: "info"
+    };
+  }
+
+  return {
+    message: `Cross-category: ${fromLabel} → ${toLabel}. Konversi matematis valid, tapi satuan dari sistem yang berbeda.`,
+    emoji: "🔀",
+    severity: "info"
+  };
+}
+
+/**
  * Format IDR currency string.
  * @param {number} amount
  * @returns {string}
