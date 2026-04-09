@@ -1,218 +1,191 @@
-// ─── Traditional & Historical Weight Units ───
+// ─── Fantasy Weight Units — Tiered Arcane System ───
 // factor = grams per 1 unit
-// Sources: trade records, colonial-era standards, regional market usage
+// Base ratio: x12 per tier (duodecimal — 12 is the Arcane Number)
+//
+// ┌─────────────────────────────────────────────┐
+// │  ARCANE SYSTEM OF MASS                      │
+// │                                             │
+// │  Tier 1 (Dust):    ~1g      base particle   │
+// │  Tier 2 (Shard):   ~12g     small fragment  │
+// │  Tier 3 (Fragment):~144g    medium piece    │
+// │  Tier 4 (Core):    ~1728g   large artifact  │
+// │                                             │
+// │  1 Core = 12 Fragment = 144 Shard = 1728    │
+// │  Dust                                       │
+// └─────────────────────────────────────────────┘
 
-export const traditionalUnits = [
-
-  // ═══════════════════════════════════════════
-  //  INDONESIA / NUSANTARA
-  //  Gold trade, pasar tradisional, colonial era
-  // ═══════════════════════════════════════════
-
-  // ── Sistem Emas & Perhiasan ──
-  { id: "mayam",         name: "Mayam",              factor: 3.22,    category: "traditional", description: "Nusantara gold weight unit, used for jewelry and trade (~3.22g)", isPreciousMetal: true, metalType: "gold" },
-  { id: "kupang",        name: "Kupang",             factor: 0.64,    category: "traditional", description: "Small Nusantara unit, 1/5 mayam, used for tiny gold items (~0.64g)", isPreciousMetal: true, metalType: "gold" },
-  { id: "saga",          name: "Saga",               factor: 0.0645,  category: "traditional", description: "Minuscule Nusantara unit, 1/10 kupang (~0.0645g)", isPreciousMetal: true, metalType: "gold" },
-  { id: "biji_merah",    name: "Biji Merah",         factor: 0.125,   category: "traditional", description: "Red seed weight used in Malay gold trade (~0.125g)", isPreciousMetal: true, metalType: "gold" },
-  { id: "tahil",         name: "Tahil",              factor: 37.8,    category: "traditional", description: "Malay/Chinese tael, standard in Nusantara trade (~37.8g)" },
-  { id: "sookai",        name: "Sookai",             factor: 5.95,    category: "traditional", description: "Gold measure in Malay Peninsula (~5.95g)", isPreciousMetal: true, metalType: "gold" },
-  { id: "real",          name: "Real",               factor: 3.22,    category: "traditional", description: "Gold weight in Malay kingdoms (~3.22g)", isPreciousMetal: true, metalType: "gold" },
-
-  // ── Sistem Emas Aceh ──
-  // Mayam adalah satuan emas paling aktif digunakan di Aceh untuk mahar (jeulamee) dan perhiasan hingga sekarang.
-  { id: "mayam_aceh",    name: "Mayam Aceh",         factor: 3.33,    category: "traditional", description: "Satuan emas utama di Aceh untuk mahar pernikahan dan perhiasan. 1 Mayam ≈ 3.33 gram emas murni (24K). Harga emas sering dikutip per mayam.", isPreciousMetal: true, metalType: "gold", region: "Aceh" },
-  { id: "ci_aceh",       name: "Ci (Aceh)",          factor: 0.333,   category: "traditional", description: "Satuan kecil emas Aceh. 10 Ci = 1 Mayam (≈ 0.333 gram).", isPreciousMetal: true, metalType: "gold", region: "Aceh" },
-
-  // ── Sistem Berat Pasar ──
-  { id: "kati",          name: "Kati",               factor: 604.8,   category: "traditional", description: "Malay catty, standard market weight (~604.8g), 16 tahil" },
-  { id: "pikul",         name: "Pikul",              factor: 60480,   category: "traditional", description: "Malay picul, 100 kati, carried by one person (~60.48kg)" },
-  { id: "bahar",         name: "Bahar",              factor: 181440,  category: "traditional", description: "Nusantara maritime weight, 3 pikul (~181.4kg), used in VOC spice trade" },
-  { id: "koyan",         name: "Koyan",              factor: 2419200, category: "traditional", description: "Nusantara bulk weight, 40 pikul (~2.4 tonnes), for rice & commodities" },
-  { id: "bungkal",       name: "Bungkal",            factor: 1.61,    category: "traditional", description: "Small Malay weight unit (~1.61g)" },
-  { id: "bungkai",       name: "Bungkai",            factor: 3.22,    category: "traditional", description: "Acehnese gold weight, used specifically for measuring gold (~3.22g)", isPreciousMetal: true, metalType: "gold" },
-
-  // ── Sistem Takaran Aceh (Volume & Beras) ──
-  // Traditional Acehnese grain/volume measurements, still widely used in households, markets, cooking, and zakat fitrah.
-  // Hierarchy: Siblakai → Kai → Cupak → Mok → Are → Sigantang → Sinalèh → Sigunca
-  // Note: Factor dalam gram untuk beras mentah (bervariasi ±5-10% tergantung jenis beras, kepadatan, dan cara meratakan).
-  // - 1 Are (Bambu) = 6 Mok ≈ 1.5 kg
-  // - 1 Mok ≈ 250 gram (kaleng susu kental manis bekas, diratakan)
-  // - Untuk zakat fitrah di Aceh biasanya: 1.5 Are + beberapa sejumput/segenggam agar mencapai 2.7–2.8 kg per jiwa (sesuai Kemenag setempat)
-  // - Semua factor adalah perkiraan rata-rata. Lebih akurat ditimbang langsung.
-  
-  // Catatan Penting Zakat Fitrah Aceh (2025–2026):
-  // - Mayoritas kabupaten/kota di Aceh menetapkan 1 Sha' = 2.8 kg beras per jiwa
-  // - Takaran tradisional yang masih dipakai: 
-  //   • 1.5 Bambu (Are) + 1 atau 2 Segenggam
-  //   • 10 Mok penuh + 1 Segenggam, atau 11 Mok
-  //   • Sekitar 3.1 liter beras
-  // - Selalu ikuti pengumuman resmi Kemenag kabupaten/kota masing-masing karena bisa sedikit berbeda.
-
-  // Satuan Kecil (untuk bumbu, penyesuaian, atau zakat)
-  { id: "sihah",         name: "Sihah",              factor: 15,      category: "traditional", description: "Satuan sangat kecil dari ujung jari kelingking hingga jari manis (~10–20 gram beras)" },
-  { id: "sejumput",      name: "Sejumput",           factor: 20,      category: "traditional", description: "Jumlah beras yang dicubit dengan 3 jari (ibu jari, telunjuk, tengah). Rata-rata ≈ 20 gram. Sering dipakai untuk tambahan zakat fitrah." },
-  { id: "segenggam",     name: "Segenggam",          factor: 35,      category: "traditional", description: "Satu genggaman kecil dengan telapak tangan (~30–40 gram beras)" },
-  { id: "sideupa",       name: "Sideupa",            factor: 80,      category: "traditional", description: "Takaran menggunakan lebar telapak tangan (dari ujung kelingking ke ujung telunjuk) ≈ 70–90 gram" },
-
-  // Satuan Standar
-  { id: "siblakai",      name: "Siblakai",           factor: 175,     category: "traditional", description: "Satuan kecil Aceh (~¼ liter ≈ 175 gram beras)" },
-  { id: "kai_aceh",      name: "Kai (Sikai)",        factor: 350,     category: "traditional", description: "Satuan kecil dari batok kelapa atau kayu (~0.5 liter ≈ 350 gram beras)" },
-  { id: "cupak_aceh",    name: "Cupak (Sicupak)",    factor: 700,     category: "traditional", description: "Mangkuk kayu, 2 Kai (~1 liter ≈ 700 gram beras)" },
-  { id: "mok",           name: "Mok (Mug / Muk)",    factor: 250,     category: "traditional", description: "Satuan paling ikonik di Aceh: kaleng susu kental manis bekas (~250 gram beras). Digunakan sehari-hari untuk memasak nasi, kanji, dll." },
-
-  // Satuan Sedang & Besar
-  { id: "are_aceh",      name: "Are (Aree / Bambu)", factor: 1500,    category: "traditional", description: "Alat takar bambu atau besi, 6 Mok (~1.5 kg beras). Sangat umum di pasar tradisional dan acara." },
-  { id: "siaree",        name: "Siaree (Siare)",     factor: 1400,    category: "traditional", description: "Satuan sedang (~2 liter ≈ 1.4 kg beras)" },
-  { id: "sigantang",     name: "Sigantang (Gantang)",factor: 3000,    category: "traditional", description: "2 Are (~4 liter ≈ 3 kg beras)" },
-  { id: "sinaleh",       name: "Sinalèh (Nalèh)",    factor: 24000,   category: "traditional", description: "16 Are (~24 kg beras) – satuan besar, jarang digunakan sehari-hari" },
-  { id: "sigunca",       name: "Sigunca",            factor: 240000,  category: "traditional", description: "10 Nalèh (~240 kg) – satuan terbesar untuk perdagangan bulk atau upacara adat" },
-  
-  // ── Satuan Khusus Zakat Fitrah Aceh ──
-  // Berdasarkan ketetapan Kemenag Aceh (umumnya 2.7–2.8 kg beras per jiwa untuk tahun 2025–2026)
-  { id: "sha_aceh",      name: "Sha' (Zakat Fitrah)", factor: 2800,   category: "traditional", description: "Satuan zakat fitrah utama di Aceh. 1 Sha' ≈ 2.8 kg beras per jiwa (Mazhab Syafi'i). Bervariasi 2.7–2.8 kg antar kabupaten." },
-  { id: "sha_tradisional", name: "Sha' Tradisional",  factor: 2750,   category: "traditional", description: "Takaran tradisional zakat fitrah: 1.5 Are (Bambu) + 1–2 Segenggam atau 10–11 Mok + sejumput/segenggam (≈ 2.7–2.8 kg)" },
-  
-  { id: "catty_id",      name: "Kati (Indonesia)",   factor: 617,     category: "traditional", description: "Indonesian catty used in Javanese markets (~617g)" },
+export const fantasyUnits = [
 
   // ═══════════════════════════════════════════
-  //  CHINA
-  //  Sistem jīn-liǎng (斤两), used in trade since Tang dynasty
+  //  TIER 1 — DUST & PARTICLES (~1g range)
+  //  Fine magical materials, raw essence
   // ═══════════════════════════════════════════
 
-  // ── Modern Chinese (市制 shìzhì) ──
-  { id: "jin",           name: "Jin (斤)",           factor: 500,     category: "traditional", description: "Chinese catty, modern standard — exactly 500g" },
-  { id: "liang",         name: "Liang (两)",          factor: 50,      category: "traditional", description: "Chinese tael, 1/10 jin — 50g, used for gold and silver", isPreciousMetal: true, metalType: "gold" },
-  { id: "qian",          name: "Qian (钱)",           factor: 5,       category: "traditional", description: "Chinese mace, 1/10 liang — 5g", isPreciousMetal: true, metalType: "gold" },
-  { id: "fen_cn",        name: "Fen (分)",            factor: 0.5,     category: "traditional", description: "Chinese candareen, 1/10 qian — 0.5g" },
-  { id: "li_cn",         name: "Li (厘)",             factor: 0.05,    category: "traditional", description: "Chinese li, 1/10 fen — 0.05g" },
-  { id: "dan",           name: "Dan (担)",            factor: 50000,   category: "traditional", description: "Chinese picul, 100 jin — 50kg, for bulk grain and trade" },
-  { id: "jun",           name: "Jun (钧)",            factor: 7500,    category: "traditional", description: "Ancient Chinese unit, 30 jin — 7.5kg" },
-
-  // ── Historical Chinese (used before 1929 reform) ──
-  { id: "jin_old",       name: "Jin (旧斤)",          factor: 596.8,   category: "traditional", description: "Pre-reform Chinese catty (~596.8g), used in Qing dynasty trade" },
-  { id: "liang_old",     name: "Liang (旧两)",         factor: 37.3,    category: "traditional", description: "Pre-reform tael (~37.3g), used for gold and silver trade", isPreciousMetal: true, metalType: "gold" },
+  { id: "ether_dust",        name: "Ether Dust",            factor: 1,       category: "fantasy", description: "Finely ground ether particles — base unit of arcane mass" },
+  { id: "fairy_dust",        name: "Fairy Dust",            factor: 0.5,     category: "fantasy", description: "Weightless pixie powder, half an ether dust" },
+  { id: "void_dust",         name: "Void Dust",             factor: 0.25,    category: "fantasy", description: "Near-weightless dark matter remnants" },
+  { id: "stardust",          name: "Stardust",              factor: 2,       category: "fantasy", description: "Fallen star particles gathered at dawn" },
+  { id: "ember_spark",       name: "Ember Spark",           factor: 1.5,     category: "fantasy", description: "Tiny perpetually burning coal fragment" },
+  { id: "frost_mote",        name: "Frost Mote",            factor: 1.2,     category: "fantasy", description: "Microscopic ice crystal that never melts" },
+  { id: "shadow_dust",       name: "Shadow Dust",           factor: 0.8,     category: "fantasy", description: "Crushed shadow weave, absorbs light" },
+  { id: "luminous_dust",     name: "Luminous Dust",         factor: 1.1,     category: "fantasy", description: "Glowing phosphorescent powder" },
+  { id: "blood_sand",        name: "Blood Sand",            factor: 2.5,     category: "fantasy", description: "Red sand from enchanted battlefields" },
+  { id: "dream_powder",      name: "Dream Powder",          factor: 0.3,     category: "fantasy", description: "Harvested from sleeping minds, almost weightless" },
 
   // ═══════════════════════════════════════════
-  //  INDIA / SOUTH ASIA
-  //  Tola-ratti system, used for gold to this day
+  //  TIER 2 — SHARDS & FRAGMENTS (~12g range)
+  //  Small magical components, jewelry-grade
   // ═══════════════════════════════════════════
 
-  // ── Gold & Precious Metals ──
-  { id: "tola",          name: "Tola",               factor: 11.6638, category: "traditional", description: "Indian gold weight, still used in South Asian bullion trade (~11.66g)", isPreciousMetal: true, metalType: "gold" },
-  { id: "masha",         name: "Masha",              factor: 0.97,    category: "traditional", description: "1/12 tola, used in Indian jewelry making (~0.97g)", isPreciousMetal: true, metalType: "gold" },
-  { id: "ratti",         name: "Ratti",              factor: 0.1215,  category: "traditional", description: "Indian seed weight, 1/8 masha, basis for carat (~0.1215g)", isPreciousMetal: true, metalType: "gold" },
-  { id: "gunja",         name: "Gunja",              factor: 0.1215,  category: "traditional", description: "Abrus precatorius seed, original ratti standard (~0.1215g)" },
-
-  // ── Market & Bulk ──
-  { id: "ser",           name: "Ser (Seer)",         factor: 933.1,   category: "traditional", description: "Indian market weight, ~80 tola (~933.1g)" },
-  { id: "maund",         name: "Maund",              factor: 37324.2, category: "traditional", description: "Indian bulk weight, 40 ser (~37.32kg), used for grain" },
-  { id: "chatak",        name: "Chatak",             factor: 58.32,   category: "traditional", description: "Indian weight, 1/16 ser (~58.3g)" },
-  { id: "pala",          name: "Pala",               factor: 46.66,   category: "traditional", description: "Ancient Indian weight, 4 tola (~46.66g)" },
-  { id: "dharana",       name: "Dharana",            factor: 3.48,    category: "traditional", description: "Ancient Indian silver weight (~3.48g)", isPreciousMetal: true, metalType: "silver" },
-  { id: "karsha",        name: "Karsha",             factor: 11.66,   category: "traditional", description: "Ayurvedic measurement, equal to 1 tola (~11.66g)" },
-
-  // ═══════════════════════════════════════════
-  //  ISLAMIC / MIDDLE EASTERN
-  //  Mithqal-dirham system, Islamic jurisprudence
-  // ═══════════════════════════════════════════
-
-  { id: "mithqal",       name: "Mithqal",            factor: 4.25,    category: "traditional", description: "Islamic gold weight, used in zakat calculation (~4.25g)", isPreciousMetal: true, metalType: "gold" },
-  { id: "dinar",         name: "Dinar (دينار)",       factor: 4.25,    category: "traditional", description: "Islamic gold coin, equal to 1 mithqal (~4.25g), used for mahr & zakat", isPreciousMetal: true, metalType: "gold" },
-  { id: "dirham_wt",     name: "Dirham (weight)",    factor: 2.975,   category: "traditional", description: "Islamic silver weight, 7/10 mithqal (~2.975g)", isPreciousMetal: true, metalType: "silver" },
-  { id: "rotl",          name: "Rotl (Ratl)",        factor: 447.2,   category: "traditional", description: "Medieval Islamic pound (~447.2g), used in bazaar trade" },
-  { id: "okka",          name: "Okka",               factor: 1282.6,  category: "traditional", description: "Ottoman market weight (~1.28kg), equal to 400 dirham" },
-  { id: "batman",        name: "Batman",             factor: 7695.6,  category: "traditional", description: "Ottoman bulk weight, 6 okka (~7.7kg)" },
-  { id: "chequi",        name: "Cheki",              factor: 507.5,   category: "traditional", description: "Ottoman market weight (~507.5g)" },
-  { id: "wakkiyyah",     name: "Wakkiyyah",          factor: 32.07,   category: "traditional", description: "Islamic ounce, 1/40 rotl (~32.07g)" },
+  { id: "mana_shard",        name: "Mana Shard",            factor: 12,      category: "fantasy", description: "Small crystallized mana fragment — 12 ether dust" },
+  { id: "ether_shard",       name: "Ether Shard",           factor: 10,      category: "fantasy", description: "Fractured piece of pure ether" },
+  { id: "rune_fragment",     name: "Rune Fragment",         factor: 15,      category: "fantasy", description: "Broken runic inscription piece" },
+  { id: "dragon_scale",      name: "Dragon Scale",          factor: 8,       category: "fantasy", description: "Shed scale from an adult dragon" },
+  { id: "wyvern_scale",      name: "Wyvern Scale",          factor: 6,       category: "fantasy", description: "Lighter scale from a lesser wyvern" },
+  { id: "basilisk_scale",    name: "Basilisk Scale",        factor: 14,      category: "fantasy", description: "Petrifying scale, handle with gloves" },
+  { id: "phoenix_feather",   name: "Phoenix Feather",       factor: 2,       category: "fantasy", description: "Single radiant plume from a reborn phoenix" },
+  { id: "chimera_hair",      name: "Chimera Mane Hair",     factor: 0.5,     category: "fantasy", description: "Tri-colored strand from a chimera's mane" },
+  { id: "enchant_gem",       name: "Enchanted Gem",         factor: 15,      category: "fantasy", description: "Gemstone imbued with minor magic" },
+  { id: "luminous_pearl",    name: "Luminous Pearl",        factor: 12,      category: "fantasy", description: "Pearl that glows in moonlight" },
+  { id: "soul_shard",        name: "Soul Shard",            factor: 5,       category: "fantasy", description: "Fragment containing a sliver of soul energy" },
+  { id: "amulet",            name: "Amulet",                factor: 25,      category: "fantasy", description: "Protective charm pendant" },
+  { id: "ring",              name: "Binding Ring",          factor: 8,       category: "fantasy", description: "Enchanted ring with embedded gem" },
+  { id: "wand",              name: "Wizard's Wand",         factor: 50,      category: "fantasy", description: "Carved magical focus rod" },
+  { id: "flame_ember",       name: "Flame Ember",           factor: 5,       category: "fantasy", description: "Ever-burning magical coal" },
+  { id: "ice_crystal",       name: "Ice Crystal",           factor: 20,      category: "fantasy", description: "Permanently frozen magical crystal" },
+  { id: "thunderstone_shard", name: "Thunderstone Shard",   factor: 18,      category: "fantasy", description: "Electrically charged mineral fragment" },
+  { id: "moonstone_shard",   name: "Moonstone Shard",       factor: 12,      category: "fantasy", description: "Stone blessed by full moon" },
+  { id: "sunstone_shard",    name: "Sunstone Shard",        factor: 14,      category: "fantasy", description: "Radiant solar crystal fragment" },
+  { id: "dream_silk",        name: "Dream Silk Swatch",     factor: 0.4,     category: "fantasy", description: "Near-weightless enchanted fabric piece" },
+  { id: "shadow_weave",      name: "Shadow Weave",          factor: 1.5,     category: "fantasy", description: "Dark magic-infused cloth strip" },
+  { id: "living_metal_ingot", name: "Living Metal Ingot",   factor: 10,      category: "fantasy", description: "Small bar of semi-sentient metal" },
 
   // ═══════════════════════════════════════════
-  //  THAILAND
-  //  Baht-Tamleung system, still used for gold
+  //  TIER 3 — STONES & CORES (~144g range)
+  //  Powerful magical components, dungeon loot
   // ═══════════════════════════════════════════
 
-  { id: "baht_th",       name: "Baht (บาท)",          factor: 15.244,  category: "traditional", description: "Thai gold weight, standard in Thai gold shops (~15.24g)", isPreciousMetal: true, metalType: "gold" },
-  { id: "tamleung",      name: "Tamleung (ตำลึง)",     factor: 60.976,  category: "traditional", description: "Thai tael, 4 baht (~60.98g)", isPreciousMetal: true, metalType: "gold" },
-  { id: "chang_th",      name: "Chang (ชั่ง)",        factor: 1219.52, category: "traditional", description: "Thai chang, 20 tamleung (~1.22kg)" },
-  { id: "salung",        name: "Salung (สลึง)",       factor: 3.811,   category: "traditional", description: "Thai quarter-baht, 1/4 baht (~3.81g)", isPreciousMetal: true, metalType: "gold" },
-  { id: "fuang",         name: "Fuang (เฟื้อง)",       factor: 1.906,   category: "traditional", description: "Thai half-salung (~1.91g)", isPreciousMetal: true, metalType: "gold" },
-  { id: "pai",           name: "Pai (ไพ)",            factor: 0.953,   category: "traditional", description: "Thai smallest weight, half-fuang (~0.95g)", isPreciousMetal: true, metalType: "gold" },
+  { id: "mana_stone",        name: "Mana Stone",            factor: 144,     category: "fantasy", description: "Polished mana crystal — 12 shards condensed" },
+  { id: "arcane_fragment",   name: "Arcane Fragment",       factor: 120,     category: "fantasy", description: "Broken piece of an ancient arcane device" },
+  { id: "rune_stone",        name: "Rune Stone",            factor: 150,     category: "fantasy", description: "Carved runic tablet with active enchantment" },
+  { id: "unicorn_horn",      name: "Unicorn Horn Shard",    factor: 160,     category: "fantasy", description: "Fragment of a pure unicorn horn" },
+  { id: "griffin_claw",      name: "Griffin Claw",          factor: 45,      category: "fantasy", description: "Sharp talon from a griffin" },
+  { id: "hydra_fang",        name: "Hydra Fang",            factor: 90,      category: "fantasy", description: "Venomous fang from a hydra head" },
+  { id: "orb_of_binding",    name: "Orb of Binding",        factor: 200,     category: "fantasy", description: "Sphere that contains bound energy" },
+  { id: "potion_vial",       name: "Potion Vial (full)",    factor: 150,     category: "fantasy", description: "Standard healing potion in glass flask" },
+  { id: "spell_scroll",      name: "Spell Scroll",          factor: 30,      category: "fantasy", description: "Parchment with inscribed spell formula" },
+  { id: "soul_gem",          name: "Soul Gem",              factor: 120,     category: "fantasy", description: "Gem that captures and stores souls" },
+  { id: "obsidian_core",     name: "Obsidian Core",         factor: 180,     category: "fantasy", description: "Dense volcanic magic core" },
+  { id: "ether_core",        name: "Ether Core",            factor: 130,     category: "fantasy", description: "Solidified ether sphere" },
+  { id: "troll_blood_vial",  name: "Troll Blood Vial",      factor: 140,     category: "fantasy", description: "Thick regenerative troll ichor" },
+  { id: "kraken_ink_pot",    name: "Kraken Ink Pot",        factor: 200,     category: "fantasy", description: "Potent giant squid ink in sealed pot" },
+  { id: "tome",              name: "Ancient Tome",          factor: 1500,    category: "fantasy", description: "Leather-bound spellbook with clasp" },
+  { id: "crystal_ball",      name: "Crystal Ball",          factor: 2000,    category: "fantasy", description: "Scrying crystal sphere" },
+
+  // ── Tier 3 Weapons & Armor ──
+  { id: "dagger",            name: "Arcane Dagger",         factor: 350,     category: "fantasy", description: "Enchanted short blade" },
+  { id: "sword",             name: "Standard Sword",        factor: 1200,    category: "fantasy", description: "Balanced longsword, adventurer's staple" },
+  { id: "arrows_quiver",     name: "Arrow Quiver (20)",     factor: 1200,    category: "fantasy", description: "Bundle of twenty arrows" },
+  { id: "helmet_iron",       name: "Iron Helmet",           factor: 2500,    category: "fantasy", description: "Standard open-face iron helmet" },
 
   // ═══════════════════════════════════════════
-  //  JAPAN
-  //  Monme-Kan system, Edo period standard
+  //  TIER 4 — CORES & RELICS (~1728g / kg range)
+  //  Major artifacts, boss drops, legendary items
   // ═══════════════════════════════════════════
 
-  { id: "kan",           name: "Kan (貫)",            factor: 3750,    category: "traditional", description: "Japanese kan, 1000 monme (~3.75kg), measured by coins" },
-  { id: "monme_jp",      name: "Monme (匁)",          factor: 3.75,    category: "traditional", description: "Japanese weight, used for silver trade (~3.75g)", isPreciousMetal: true, metalType: "silver" },
-  { id: "kin_jp",        name: "Kin (斤)",            factor: 600,     category: "traditional", description: "Japanese catty, 160 monme — 600g" },
-  { id: "ryou",          name: "Ryō (両)",            factor: 15,      category: "traditional", description: "Japanese gold coin weight, 4 monme — 15g", isPreciousMetal: true, metalType: "gold" },
-  { id: "momme",         name: "Momme",              factor: 3.75,    category: "traditional", description: "International spelling of monme, standard for pearls (~3.75g)" },
-  { id: "hyakume",       name: "Hyakume (百目)",       factor: 375,     category: "traditional", description: "Japanese 100 monme (~375g), common market weight" },
+  { id: "arcane_core",       name: "Arcane Core",           factor: 1728,    category: "fantasy", description: "Concentrated mana sphere — 12 stones fused, base of Tier 4" },
+  { id: "mithril_ingot",     name: "Mithril Ingot",         factor: 2100,    category: "fantasy", description: "Pure mithril bar, lighter than steel" },
+  { id: "greatsword",        name: "Greatsword",            factor: 3500,    category: "fantasy", description: "Massive two-handed blade" },
+  { id: "war_hammer",        name: "War Hammer",            factor: 4500,    category: "fantasy", description: "Crushing war hammer" },
+  { id: "shield_wooden",     name: "Wooden Shield",         factor: 4000,    category: "fantasy", description: "Basic round wooden shield" },
+  { id: "shield_steel",      name: "Steel Shield",          factor: 8000,    category: "fantasy", description: "Heavy knight's tower shield" },
+  { id: "chainmail",         name: "Chainmail Hauberk",     factor: 12000,   category: "fantasy", description: "Full chainmail armor" },
+  { id: "plate_armor",       name: "Plate Armor Set",       factor: 22000,   category: "fantasy", description: "Full plate armor, maximum protection" },
+  { id: "staff",             name: "Staff of Channeling",   factor: 3000,    category: "fantasy", description: "Tall arcane focus staff" },
+  { id: "dragon_bone",       name: "Dragon Bone",           factor: 1400,    category: "fantasy", description: "Dense dragon skeleton fragment" },
+  { id: "behemoth_horn",     name: "Behemoth Horn",         factor: 5000,    category: "fantasy", description: "Massive beast horn" },
+  { id: "aurora_shard",      name: "Aurora Shard",          factor: 1800,    category: "fantasy", description: "Crystallized northern lights" },
+  { id: "void_core",         name: "Void Core",             factor: 500,     category: "fantasy", description: "Dense sphere of compressed darkness" },
+  { id: "flame_heart",       name: "Flame Heart",           factor: 800,     category: "fantasy", description: "Solidified heart of a fire elemental" },
+  { id: "frost_heart",       name: "Frost Heart",           factor: 750,     category: "fantasy", description: "Frozen core of an ice elemental" },
+  { id: "earth_heart",       name: "Earth Heart",           factor: 2200,    category: "fantasy", description: "Dense mineral heart of a golem" },
+  { id: "storm_heart",       name: "Storm Heart",           factor: 600,     category: "fantasy", description: "Volatile core crackling with lightning" },
+  { id: "healing_stone",     name: "Greater Healing Stone", factor: 1500,    category: "fantasy", description: "Stone that radiates restorative energy" },
+  { id: "teleport_stone",    name: "Teleportation Stone",   factor: 400,     category: "fantasy", description: "Attuned stone for short-range teleport" },
+  { id: "relic_fragment",    name: "Relic Fragment",        factor: 1728,    category: "fantasy", description: "Broken piece of an ancient relic — equals 1 core" },
 
   // ═══════════════════════════════════════════
-  //  KOREA
-  //  Geun-Nyang system
+  //  TIER 5 — LEGENDARY (10 kg+ range)
+  //  Mythic artifacts, world-shaping items
   // ═══════════════════════════════════════════
 
-  { id: "geun_kr",       name: "Geun (근)",           factor: 600,     category: "traditional", description: "Korean catty, 16 nyang — 600g" },
-  { id: "nyang_kr",      name: "Nyang (냥)",          factor: 37.5,    category: "traditional", description: "Korean tael, used for gold — 37.5g", isPreciousMetal: true, metalType: "gold" },
-  { id: "don_kr",        name: "Don (돈)",            factor: 3.75,    category: "traditional", description: "Korean small weight, 1/10 nyang — 3.75g", isPreciousMetal: true, metalType: "gold" },
-  { id: "hop_kr",        name: "Hop (홉)",            factor: 0.375,   category: "traditional", description: "Korean minuscule weight, 1/10 don — 0.375g" },
+  { id: "hero_mass",         name: "Hero Mass",             factor: 70000,   category: "fantasy", description: "Weight of a legendary hero (~70kg), used as measurement" },
+  { id: "titan_fragment",    name: "Titan Fragment",        factor: 50000,   category: "fantasy", description: "Chunk of a fallen titan's body (~50kg)" },
+  { id: "celestial_mass",    name: "Celestial Mass",        factor: 17280,   category: "fantasy", description: "10 cores fused — weight of a minor celestial being (~17.28kg)" },
+  { id: "world_shard",       name: "World Shard",           factor: 172800,  category: "fantasy", description: "Fragment of a shattered world — 100 cores (~172.8kg)" },
+  { id: "star_core",         name: "Star Core",             factor: 1728000, category: "fantasy", description: "Collapsed stellar mass — 1000 cores, legendary beyond measure (~1.7t)" },
 
   // ═══════════════════════════════════════════
-  //  MYANMAR / BURMA
+  //  CURRENCY (weight-based, for immersion)
   // ═══════════════════════════════════════════
 
-  { id: "viss",          name: "Viss",               factor: 1632.93, category: "traditional", description: "Burmese market weight (~1.63kg), 100 kyat" },
-  { id: "kyat_mm",       name: "Kyat",               factor: 16.33,   category: "traditional", description: "Burmese weight, used in daily trade (~16.33g)" },
-  { id: "petha",         name: "Petha",              factor: 1.63,    category: "traditional", description: "Burmese small weight, 1/10 kyat (~1.63g)" },
-  { id: "moo",           name: "Moo",                factor: 0.204,   category: "traditional", description: "Burmese tiny weight, 1/8 petha (~0.204g)" },
+  { id: "copper_coin",       name: "Copper Coin (CP)",      factor: 3,       category: "fantasy", description: "Standard copper piece, common currency" },
+  { id: "silver_coin",       name: "Silver Coin (SP)",      factor: 6,       category: "fantasy", description: "Silver piece, 2 copper — merchant's staple" },
+  { id: "gold_coin",         name: "Gold Coin (GP)",        factor: 12,      category: "fantasy", description: "Gold piece, 2 silver — adventurer's pay" },
+  { id: "platinum_coin",     name: "Platinum Coin (PP)",    factor: 12,      category: "fantasy", description: "Rare platinum piece, 10 gold — nobility" },
+  { id: "mithril_coin",      name: "Mithril Crown",         factor: 4,       category: "fantasy", description: "Ultra-rare mithril currency, 50 gold" },
 
   // ═══════════════════════════════════════════
-  //  VIETNAM
+  //  INGREDIENTS & REAGENTS
   // ═══════════════════════════════════════════
 
-  { id: "can_vn",        name: "Cân (Vietnam)",       factor: 604.8,   category: "traditional", description: "Vietnamese catty (~604.8g), used in market trade" },
-  { id: "luong_vn",      name: "Lượng",              factor: 37.8,    category: "traditional", description: "Vietnamese tael, 1/16 cân (~37.8g)", isPreciousMetal: true, metalType: "gold" },
-  { id: "chi_vn",        name: "Chỉ",                factor: 3.78,    category: "traditional", description: "Vietnamese small weight, 1/10 lượng (~3.78g)", isPreciousMetal: true, metalType: "gold" },
-  { id: "phan_vn",       name: "Phân",               factor: 0.378,   category: "traditional", description: "Vietnamese tiny weight, 1/10 chỉ (~0.378g)" },
-  { id: "tac_vn",        name: "Tắc",                factor: 0.0378,  category: "traditional", description: "Vietnamese minuscule weight, 1/10 phân (~0.0378g)" },
+  { id: "alchemist_dust",    name: "Alchemist's Dust",      factor: 1,       category: "fantasy", description: "Finely ground magical reagent — 1 ether dust" },
+  { id: "herb_bundle",       name: "Herb Bundle",           factor: 50,      category: "fantasy", description: "Tied bundle of medicinal herbs" },
+  { id: "venom_sac",         name: "Venom Sac",             factor: 30,      category: "fantasy", description: "Harvested poison gland from a beast" },
+  { id: "mana_petal",        name: "Mana Petal",            factor: 0.8,     category: "fantasy", description: "Petal from a mana-infused flower" },
+  { id: "ghost_moss",        name: "Ghost Moss",            factor: 3,       category: "fantasy", description: "Luminescent moss from haunted caves" },
+  { id: "wyrm_ash",          name: "Wyrm Ash",              factor: 2,       category: "fantasy", description: "Ash residue from a dragon's breath" },
+  { id: "crystal_shard",     name: "Elemental Crystal",     factor: 25,      category: "fantasy", description: "Unaligned elemental crystal piece" },
 
   // ═══════════════════════════════════════════
-  //  EUROPEAN HISTORICAL
+  //  EASTERN FANTASY / ISEKAI / CULTIVATION
+  //  Inspired by Anime, Manga, Manhwa, Manhua
+  //  (Solo Leveling, Overlord, Nano Machine, Battle Through the Heavens, etc.)
+  //  Heavy on Mana/Spirit/Qi crystals, Pills, Beast Cores, Divine Artifacts
   // ═══════════════════════════════════════════
 
-  // ── Roman / Greek ──
-  { id: "libra",         name: "Libra (Roman)",      factor: 328.9,   category: "traditional", description: "Roman pound (~328.9g), origin of 'lb'" },
-  { id: "uncia",         name: "Uncia (Roman)",      factor: 27.4,    category: "traditional", description: "Roman ounce, 1/12 libra (~27.4g), origin of 'oz'" },
-  { id: "mina",          name: "Mina (Greek)",       factor: 436,     category: "traditional", description: "Greek mina (~436g), 100 drachma" },
-  { id: "talent",        name: "Talent (Greek)",     factor: 26160,   category: "traditional", description: "Greek talent (~26.16kg), 60 mina — largest ancient unit" },
-  { id: "drachma",       name: "Drachma (Greek)",    factor: 4.36,    category: "traditional", description: "Greek weight (~4.36g), origin of currency" },
-  { id: "obol",          name: "Obol (Greek)",       factor: 0.727,   category: "traditional", description: "Greek small weight (~0.73g), 1/6 drachma" },
+  // ── Shards & Fragments (Tier 2 area) ──
+  { id: "spirit_stone",      name: "Spirit Stone (Low Grade)",   factor: 10,      category: "fantasy", description: "Batu roh tingkat rendah yang mengandung qi/mana, populer di cultivation manhwa" },
+  { id: "beast_core",        name: "Beast Core",                 factor: 8,       category: "fantasy", description: "Inti monster binatang buas, digunakan untuk cultivasi atau crafting pill" },
+  { id: "demon_core",        name: "Demon Core",                 factor: 15,      category: "fantasy", description: "Inti iblis berenergi tinggi, sering muncul di dark fantasy manhwa" },
+  { id: "qi_bead",           name: "Qi Bead",                    factor: 5,       category: "fantasy", description: "Manik qi murni, digunakan untuk meditasi dan breakthrough" },
+  { id: "heavenly_crystal",  name: "Heavenly Crystal Shard",     factor: 12,      category: "fantasy", description: "Kristal surgawi, bahan utama artifact di cultivation story" },
 
-  // ── French ──
-  { id: "livre",         name: "Livre (French)",     factor: 489.5,   category: "traditional", description: "French pound (~489.5g), used before metric system" },
-  { id: "once_fr",       name: "Once (French)",      factor: 30.59,   category: "traditional", description: "French ounce, 1/16 livre (~30.59g)" },
-  { id: "marc",          name: "Marc (French)",      factor: 244.75,  category: "traditional", description: "French half-livre (~244.75g), used for silver", isPreciousMetal: true, metalType: "silver" },
-  { id: "gros_fr",       name: "Gros (French)",      factor: 3.82,    category: "traditional", description: "French gros, 1/8 once (~3.82g)" },
+  // ── Stones & Cores (Tier 3 area) ──
+  { id: "mana_crystal",      name: "Mana Crystal (Medium)",      factor: 160,     category: "fantasy", description: "Kristal mana ukuran sedang, sumber energi utama di isekai RPG" },
+  { id: "spirit_pill",       name: "Spirit Pill (High Grade)",   factor: 2,       category: "fantasy", description: "Pil kultivasi berenergi tinggi, berat ringan tapi sangat berharga" },
+  { id: "nascent_soul_frag", name: "Nascent Soul Fragment",      factor: 100,     category: "fantasy", description: "Fragmen jiwa bayi, bahan langka di xianxia-style manhwa" },
+  { id: "dragon_vein_stone", name: "Dragon Vein Stone",          factor: 180,     category: "fantasy", description: "Batu urat naga, sumber qi alam yang sangat murni" },
 
-  // ── German ──
-  { id: "pfund",         name: "Pfund (German)",     factor: 500,     category: "traditional", description: "German pound — exactly 500g (metric reform)" },
-  { id: "zentner",       name: "Zentner (German)",   factor: 50000,   category: "traditional", description: "German hundredweight, 100 pfund — 50kg" },
-  { id: "loth",          name: "Loth (German)",      factor: 15.625,  category: "traditional", description: "German small weight, 1/32 pfund (~15.625g)" },
+  // ── Major Artifacts (Tier 4 area) ──
+  { id: "divine_artifact",   name: "Divine Artifact",            factor: 2500,    category: "fantasy", description: "Senjata atau benda suci tingkat dewa, sering muncul di manhwa OP MC" },
+  { id: "spatial_ring",      name: "Spatial Ring",               factor: 15,      category: "fantasy", description: "Cincin ruang dimensi, berat ringan tapi kapasitas besar (ikonik di cultivation story)" },
+  { id: "immortal_pill",     name: "Immortal Pill",              factor: 5,       category: "fantasy", description: "Pil keabadian, sangat ringan tapi efek luar biasa" },
+  { id: "phoenix_blood",     name: "Phoenix Blood Essence",      factor: 1200,    category: "fantasy", description: "Esensi darah phoenix, bahan untuk rebirth atau power up" },
 
-  // ── Dutch ──
-  { id: "pond_nl",       name: "Pond (Dutch)",       factor: 494,     category: "traditional", description: "Dutch pound (~494g), used in VOC trade" },
-  { id: "ons_nl",        name: "Ons (Dutch)",        factor: 100,     category: "traditional", description: "Dutch ons, modern standard — 100g" },
+  // ── Ingredients & Reagents (Eastern Style) ──
+  { id: "monster_core",      name: "Monster Core",               factor: 25,      category: "fantasy", description: "Inti monster biasa, bahan dasar crafting dan alchemy" },
+  { id: "heavenly_herb",     name: "Heavenly Spirit Herb",       factor: 10,      category: "fantasy", description: "Tanaman roh surgawi, bahan utama pill kultivasi" },
+  { id: "dragon_blood",      name: "Dragon Blood Vial",          factor: 200,     category: "fantasy", description: "Darah naga murni dalam botol" },
+  { id: "yin_yang_fruit",    name: "Yin-Yang Fruit",             factor: 80,      category: "fantasy", description: "Buah keseimbangan yin-yang, langka di dunia cultivation" },
+  { id: "soul_essence",      name: "Soul Essence Crystal",       factor: 40,      category: "fantasy", description: "Kristal esensi jiwa, digunakan untuk soul weapon atau reincarnation" },
 
-  // ── British ──
-  { id: "grain_uk",      name: "Grain",              factor: 0.0648,  category: "traditional", description: "Oldest English weight, based on barley grain (~0.0648g)" },
+  // ── Tier 5+ — Legendary Eastern ──
+  { id: "world_tree_leaf",   name: "World Tree Leaf",            factor: 50,      category: "fantasy", description: "Daun Pohon Dunia, membawa kebijaksanaan dan usia panjang" },
+  { id: "god_core",          name: "God Core",                   factor: 5000,    category: "fantasy", description: "Inti kekuatan dewa, sumber ultimate power di xianxia" },
+  { id: "primordial_chaos",  name: "Primordial Chaos Fragment",  factor: 10000,   category: "fantasy", description: "Pecahan Kekacauan Primordial, bahan penciptaan dunia" },
 
-  // ═══════════════════════════════════════════
-  //  REGIONAL VARIANTS (same system, different locale)
-  // ═══════════════════════════════════════════
-
-  { id: "tael_hk",       name: "Tael (Hong Kong)",   factor: 37.429,  category: "traditional", description: "Hong Kong tael (~37.43g), used in Cantonese gold trade", isPreciousMetal: true, metalType: "gold" },
-  { id: "tael_sg",       name: "Tael (Singapore)",   factor: 37.799,  category: "traditional", description: "Singapore tael (~37.8g), used in local gold shops", isPreciousMetal: true, metalType: "gold" },
-  { id: "catty_sg",      name: "Catty (Singapore)",  factor: 604.8,   category: "traditional", description: "Singapore catty (~604.8g), 16 tael" },
+  // ── Currency (Eastern Style) ──
+  { id: "spirit_coin",       name: "Spirit Coin",                factor: 5,       category: "fantasy", description: "Mata uang cultivation dunia, terbuat dari spirit stone" },
+  { id: "contribution_pt",   name: "Contribution Point Token",   factor: 1,       category: "fantasy", description: "Token kontribusi sekte, ditukar dengan resource langka" },
 ];
