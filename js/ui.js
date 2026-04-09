@@ -226,7 +226,8 @@ function setOutput(text) {
 
 function updateInfo(el, unit) {
   if (el && unit?.description) {
-    el.textContent = unit.description;
+    const en = unit.description_en ? ` / ${unit.description_en}` : "";
+    el.textContent = unit.description + en;
   } else if (el) {
     el.textContent = "";
   }
