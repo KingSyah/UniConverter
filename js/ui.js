@@ -12,6 +12,8 @@ let precision = 4;
 let mode = "convert";       // "convert" | "gold"
 let goldConfig = null;
 let silverConfig = null;
+let liveGoldConfig = null;  // stores the live/auto config separately
+const CUSTOM_PRICE_KEY = "arcane-custom-gold-price";
 
 // ─── Selectors cache ───
 const els = {};
@@ -36,6 +38,10 @@ function cacheDom() {
   els.goldWarning  = $("#goldWarning");
   els.swapWrap     = els.swapBtn?.closest(".swap");
   els.priceStatus  = $("#priceStatus");
+  els.customPrice      = $("#customPrice");
+  els.customPriceInput = $("#customPriceInput");
+  els.customPriceBtn   = $("#customPriceBtn");
+  els.customPriceReset = $("#customPriceReset");
 }
 
 // ─── Theme ───
@@ -346,6 +352,20 @@ export function initUI(units, addCustomCallback, config) {
   // Theme
   els.themeToggle?.addEventListener("click", toggleTheme);
 
+  // Custom price
+  els.customPriceBtn?.addEventListener("click", applyCustomPrice);
+  els.customPriceReset?.addEventListener("click", resetCustomPrice);
+  els.customPriceInput?.addEventListener("keydown", (e) => {
+    if (e.key === "Enter") applyCustomPrice();
+  });
+
+  // Load saved custom price
+  const savedPrice = loadCustomPrice();
+  if (savedPrice && els.customPriceInput) {
+    els.customPriceInput.value = Math.round(savedPrice);
+    els.customPrice?.classList.add("active");
+  }
+
   // Modal
   els.addCustomBtn.addEventListener("click", openModal);
   els.modal.addEventListener("click", (e) => {
@@ -385,30 +405,99 @@ export function setUnits(units) {
 // ─── Live Gold Price Integration ───
 
 /**
+ * Load custom price from localStorage.
+ */
+function loadCustomPrice() {
+  try {
+    const raw = localStorage.getItem(CUSTOM_PRICE_KEY);
+    if (!raw) return null;
+    const val = parseFloat(raw);
+    return (val > 0) ? val : null;
+  } catch { return null; }
+}
+
+/**
+ * Save custom price to localStorage.
+ */
+function saveCustomPrice(price) {
+  try {
+    if (price && price > 0) {
+      localStorage.setItem(CUSTOM_PRICE_KEY, String(price));
+    } else {
+      localStorage.removeItem(CUSTOM_PRICE_KEY);
+    }
+  } catch { /* ignore */ }
+}
+
+/**
+ * Apply custom price from input.
+ */
+function applyCustomPrice() {
+  const val = parseFloat(els.customPriceInput?.value);
+  if (isNaN(val) || val <= 0) {
+    shakeField("#customPriceInput");
+    return;
+  }
+  saveCustomPrice(val);
+  goldConfig = { ...goldConfig, pricePerGram: val };
+  els.customPrice?.classList.add("active");
+  if (mode === "gold") doConvert();
+  setPriceStatus("custom", { pricePerGram: val });
+}
+
+/**
+ * Reset to auto/live price.
+ */
+function resetCustomPrice() {
+  saveCustomPrice(null);
+  if (liveGoldConfig) {
+    goldConfig = { ...liveGoldConfig };
+  }
+  els.customPriceInput.value = "";
+  els.customPrice?.classList.remove("active");
+  if (mode === "gold") doConvert();
+}
+
+/**
  * Update gold config after live fetch.
  */
 export function updateGoldPriceConfig(config) {
-  goldConfig = config;
+  liveGoldConfig = { ...config };
+  // Don't override if user has custom price
+  const custom = loadCustomPrice();
+  if (custom) {
+    goldConfig = { ...config, pricePerGram: custom };
+  } else {
+    goldConfig = config;
+  }
   if (mode === "gold") doConvert();
 }
 
 /**
  * Set price status indicator in UI.
- * @param {"loading"|"live"|"cached"|"offline"} status
+ * @param {"loading"|"live"|"cached"|"offline"|"custom"} status
  * @param {object} data - optional price data for display
  */
 export function setPriceStatus(status, data = {}) {
   if (!els.priceStatus) return;
   const el = els.priceStatus;
 
+  const priceStr = `Rp ${Math.round(data.pricePerGram || goldConfig?.pricePerGram || 0).toLocaleString("id-ID")}/g`;
+
   const labels = {
     loading: "⏳ Fetching price…",
-    live:    `🟢 Live · Rp ${Math.round(data.pricePerGram || 0).toLocaleString("id-ID")}/g`,
-    cached:  `🟡 Cached · Rp ${Math.round(data.pricePerGram || 0).toLocaleString("id-ID")}/g`,
-    offline: `🔴 Offline · Rp ${Math.round(data.pricePerGram || 0).toLocaleString("id-ID")}/g`
+    live:    `🟢 Live · ${priceStr}`,
+    cached:  `🟡 Cached · ${priceStr}`,
+    offline: `🔴 Offline · ${priceStr}`,
+    custom:  `✏️ Custom · ${priceStr}`
   };
 
   el.textContent = labels[status] || labels.offline;
   el.className = `price-status price-${status}`;
   el.style.display = "block";
+
+  // Sync custom input if custom status
+  if (status === "custom" && els.customPriceInput) {
+    els.customPriceInput.value = Math.round(data.pricePerGram || goldConfig?.pricePerGram || 0);
+  }
 }
