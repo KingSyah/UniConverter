@@ -51,6 +51,7 @@ export const traditionalUnits = [
   // Satuan Kecil (untuk bumbu, penyesuaian, atau zakat)
   { id: "sihah",         name: "Sihah",              factor: 15,      category: "traditional", description: "Satuan sangat kecil dari ujung jari kelingking hingga jari manis (~10–20 gram beras)" },
   { id: "sejumput",      name: "Sejumput",           factor: 20,      category: "traditional", description: "Jumlah beras yang dicubit dengan 3 jari (ibu jari, telunjuk, tengah). Rata-rata ≈ 20 gram. Sering dipakai untuk tambahan zakat fitrah." },
+  { id: "sejumput_garam", name: "Sejumput (Garam/Bumbu)", factor: 0.5, category: "traditional", description: "Untuk garam atau bumbu halus: ≈ 0,4–0,6 gram (jangan pakai 20 gram!)" },
   { id: "segenggam",     name: "Segenggam",          factor: 35,      category: "traditional", description: "Satu genggaman kecil dengan telapak tangan (~30–40 gram beras)" },
   { id: "sideupa",       name: "Sideupa",            factor: 80,      category: "traditional", description: "Takaran menggunakan lebar telapak tangan (dari ujung kelingking ke ujung telunjuk) ≈ 70–90 gram" },
 
