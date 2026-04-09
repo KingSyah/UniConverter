@@ -240,6 +240,45 @@ h1 {
   background: rgba(220, 38, 38, 0.06);
 }
 
+/* ─── Price Status ─── */
+.price-status {
+  display: none;
+  margin-top: 0.65rem;
+  text-align: center;
+  font-size: 0.75rem;
+  font-weight: 500;
+  padding: 0.35rem 0.75rem;
+  border-radius: 9999px;
+  transition: all var(--transition);
+  white-space: nowrap;
+}
+
+.price-live {
+  color: var(--success);
+  background: rgba(74, 222, 128, 0.08);
+}
+
+.price-cached {
+  color: #fbbf24;
+  background: rgba(251, 191, 36, 0.08);
+}
+
+.price-offline {
+  color: var(--text-3);
+  background: var(--bg-subtle);
+}
+
+.price-loading {
+  color: var(--text-3);
+  background: var(--bg-subtle);
+  animation: pulse-subtle 1.5s ease infinite;
+}
+
+@keyframes pulse-subtle {
+  0%, 100% { opacity: 1; }
+  50%      { opacity: 0.5; }
+}
+
 /* ─── Converter Card ─── */
 .converter {
   background: var(--surface);
