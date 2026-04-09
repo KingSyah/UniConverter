@@ -21,7 +21,22 @@ export const traditionalUnits = [
   // ── Sistem Berat Pasar ──
   { id: "kati",          name: "Kati",               factor: 604.8,   category: "traditional", description: "Malay catty, standard market weight (~604.8g), 16 tahil" },
   { id: "pikul",         name: "Pikul",              factor: 60480,   category: "traditional", description: "Malay picul, 100 kati, carried by one person (~60.48kg)" },
+  { id: "bahar",         name: "Bahar",              factor: 181440,  category: "traditional", description: "Nusantara maritime weight, 3 pikul (~181.4kg), used in VOC spice trade" },
+  { id: "koyan",         name: "Koyan",              factor: 2419200, category: "traditional", description: "Nusantara bulk weight, 40 pikul (~2.4 tonnes), for rice & commodities" },
   { id: "bungkal",       name: "Bungkal",            factor: 1.61,    category: "traditional", description: "Small Malay weight unit (~1.61g)" },
+  { id: "bungkai",       name: "Bungkai",            factor: 3.22,    category: "traditional", description: "Acehnese gold weight, used specifically for measuring gold (~3.22g)", isPreciousMetal: true, metalType: "gold" },
+
+  // ── Sistem Takaran Aceh (Volume & Beras) ──
+  // Traditional Acehnese grain/volume measurements, still used in pasar & dapur
+  { id: "kai_aceh",      name: "Kai (Sikai)",        factor: 350,     category: "traditional", description: "Acehnese small measure from coconut shell or wood (~0.5L ≈ 350g rice)" },
+  { id: "cupak_aceh",    name: "Cupak (Sicupak)",    factor: 700,     category: "traditional", description: "Acehnese wooden bowl measure, 2 Kai (~1L ≈ 700g rice), used for rice & liquids" },
+  { id: "mok",           name: "Mok (Mug)",          factor: 250,     category: "traditional", description: "Acehnese everyday measure from condensed milk can (~250g rice), most iconic unit in Aceh" },
+  { id: "are_aceh",      name: "Are (Bambu)",        factor: 1500,    category: "traditional", description: "Acehnese bamboo measure, 6 Mok (~1.5kg rice), called '1 bambu', used in pasar & acara" },
+  { id: "siaree",        name: "Siaree",             factor: 1400,    category: "traditional", description: "Acehnese medium measure (~2L ≈ 1.4kg rice), for liquids and grain" },
+  { id: "sigantang",     name: "Sigantang",          factor: 3000,    category: "traditional", description: "Acehnese large measure, 2 Are (~4L ≈ 3kg rice), used for bigger quantities" },
+  { id: "sinaleh",       name: "Sinalèh",            factor: 24000,   category: "traditional", description: "Acehnese bulk measure, 16 Are (~24kg rice), rarely used in daily life" },
+  { id: "sigunca",       name: "Sigunca",            factor: 240000,  category: "traditional", description: "Acehnese largest traditional unit, 10 Nalèh (~240kg rice), ceremonial & bulk trade" },
+
   { id: "catty_id",      name: "Kati (Indonesia)",   factor: 617,     category: "traditional", description: "Indonesian catty used in Javanese markets (~617g)" },
 
   // ═══════════════════════════════════════════
