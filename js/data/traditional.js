@@ -67,6 +67,7 @@ export const traditionalUnits = [
   // ═══════════════════════════════════════════
 
   { id: "mithqal",       name: "Mithqal",            factor: 4.25,    category: "traditional", description: "Islamic gold weight, used in zakat calculation (~4.25g)", isPreciousMetal: true, metalType: "gold" },
+  { id: "dinar",         name: "Dinar (دينار)",       factor: 4.25,    category: "traditional", description: "Islamic gold coin, equal to 1 mithqal (~4.25g), used for mahr & zakat", isPreciousMetal: true, metalType: "gold" },
   { id: "dirham_wt",     name: "Dirham (weight)",    factor: 2.975,   category: "traditional", description: "Islamic silver weight, 7/10 mithqal (~2.975g)", isPreciousMetal: true, metalType: "silver" },
   { id: "rotl",          name: "Rotl (Ratl)",        factor: 447.2,   category: "traditional", description: "Medieval Islamic pound (~447.2g), used in bazaar trade" },
   { id: "okka",          name: "Okka",               factor: 1282.6,  category: "traditional", description: "Ottoman market weight (~1.28kg), equal to 400 dirham" },
