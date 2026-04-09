@@ -13,13 +13,15 @@ export function convert(value, fromFactor, toFactor) {
 
 /**
  * Format a number with given decimal places, clamped 0–10.
+ * Removes unnecessary trailing zeros for cleaner output.
+ * Examples: 2.5000 → "2.5", 100.0000 → "100", 0.1250 → "0.125"
  * @param {number} num
  * @param {number} decimals
  * @returns {string}
  */
 export function formatResult(num, decimals) {
   const d = Math.min(Math.max(parseInt(decimals) || 0, 0), 10);
-  return num.toFixed(d);
+  return parseFloat(num.toFixed(d)).toString();
 }
 
 /**
