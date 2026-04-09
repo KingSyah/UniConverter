@@ -132,6 +132,107 @@ export function getCrossCategoryNotice(fromUnit, toUnit) {
   };
 }
 
+// ─── Rice / Grain Detection ───
+
+// Rice price reference (Rp per kg, medium quality Indonesia 2026)
+const RICE_PRICE_PER_KG = 16_000;
+
+// Rice/grain-related keywords for detection
+const RICE_KEYWORDS = [
+  "beras", "nasi", "rice", "grain", "takaran", "zakat", "mok", "mug",
+  "siblakai", "kai", "cupak", "are", "bambu", "siaree", "sigantang",
+  "gantang", "sinaleh", "sigunca", "sihah", "sejumput", "segenggam",
+  "sideupa", "sha'", "sha_tradisional", "pikul", "koyan", "dan",
+  "maund", "chatak"
+];
+
+/**
+ * Check if a unit is a rice/grain measurement.
+ * @param {object} unit
+ * @returns {boolean}
+ */
+export function isRiceUnit(unit) {
+  if (!unit) return false;
+  const haystack = `${unit.id} ${unit.name} ${unit.description}`.toLowerCase();
+  return RICE_KEYWORDS.some(kw => haystack.includes(kw));
+}
+
+/**
+ * Generate a fun "absurd conversion" notice for metal ↔ rice.
+ * Returns null if not applicable.
+ * @param {object} fromUnit
+ * @param {object} toUnit
+ * @param {object} goldConfig - { pricePerGram }
+ * @param {object} silverConfig - { pricePerGram }
+ * @param {number} value - the input value
+ * @param {number} convertedValue - the output value
+ * @returns {{ message: string, emoji: string, severity: "info" } | null}
+ */
+export function getAbsurdConversionNotice(fromUnit, toUnit, goldConfig, silverConfig, value, convertedValue) {
+  if (!fromUnit || !toUnit) return null;
+
+  const fromIsMetal = fromUnit.isPreciousMetal;
+  const toIsMetal = toUnit.isPreciousMetal;
+  const fromIsRice = isRiceUnit(fromUnit);
+  const toIsRice = isRiceUnit(toUnit);
+
+  // Only trigger for metal ↔ rice
+  if (!((fromIsMetal && toIsRice) || (fromIsRice && toIsMetal))) return null;
+
+  const metalUnit = fromIsMetal ? fromUnit : toUnit;
+  const riceUnit = fromIsRice ? fromUnit : toUnit;
+  const metalConfig = (metalUnit.metalType === "silver") ? silverConfig : goldConfig;
+  const metalLabel = metalUnit.metalType === "silver" ? "perak" : "emas";
+
+  // Calculate grams of metal
+  const metalValue = fromIsMetal ? value : convertedValue;
+  const metalGrams = metalValue * metalUnit.factor;
+  const metalIDR = metalGrams * metalConfig.pricePerGram;
+
+  // How many kg of rice can you buy?
+  const riceKg = metalIDR / RICE_PRICE_PER_KG;
+
+  // How many of the rice unit?
+  const riceValue = fromIsRice ? value : convertedValue;
+  const riceGrams = riceValue * riceUnit.factor;
+  const riceKgDirect = riceGrams / 1000;
+  const riceIDR = riceKgDirect * RICE_PRICE_PER_KG;
+
+  const metalAmountStr = metalGrams >= 1000
+    ? `${(metalGrams / 1000).toFixed(2)} kg`
+    : `${metalGrams.toFixed(4)} g`;
+
+  // Fun comparisons
+  const lines = [];
+
+  if (fromIsMetal) {
+    // Gold → Rice: "X mayam emas bisa beli Y kg beras!"
+    lines.push(`${metalValue} ${metalUnit.name} (${metalAmountStr} ${metalLabel}) = Rp ${Math.round(metalIDR).toLocaleString("id-ID")}`);
+    lines.push(`💰 Bisa beli ~${riceKg >= 1000 ? (riceKg / 1000).toFixed(1) + " ton" : riceKg.toFixed(1) + " kg"} beras (Rp ${RICE_PRICE_PER_KG.toLocaleString("id-ID")}/kg)`);
+
+    if (riceKg > 100) {
+      lines.push(`🍚 Cukup buat makan ${Math.floor(riceKg / 0.2 / 30)} orang selama sebulan!`); // 200g/meal, 3 meals/day
+    }
+  } else {
+    // Rice → Gold: "X kg beras cuma setara Y gram emas"
+    lines.push(`${riceValue} ${riceUnit.name} (${riceKgDirect >= 1 ? riceKgDirect.toFixed(2) + " kg" : riceGrams.toFixed(1) + " g"} beras) = Rp ${Math.round(riceIDR).toLocaleString("id-ID")}`);
+    const equivGoldGrams = riceIDR / metalConfig.pricePerGram;
+    if (equivGoldGrams < 0.01) {
+      lines.push(`🪙 Setara ${(equivGoldGrams * 1000).toFixed(3)} mg ${metalLabel} — kurang dari sebutir saga!`);
+    } else if (equivGoldGrams < 1) {
+      lines.push(`🪙 Setara ${(equivGoldGrams).toFixed(4)} g ${metalLabel} — masih kurang dari 1 kupang`);
+    } else {
+      lines.push(`🪙 Setara ${equivGoldGrams.toFixed(3)} g ${metalLabel}`);
+    }
+  }
+
+  return {
+    message: lines.join("\n"),
+    emoji: "🌾",
+    severity: "info"
+  };
+}
+
 /**
  * Format IDR currency string.
  * @param {number} amount
